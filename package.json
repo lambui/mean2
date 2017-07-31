@@ -1,0 +1,11 @@
+{
+  "name": "mean2",
+  "version": "1.0.0",
+  "description": "MEAN STACK 2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "PhthaloBlue",
+  "license": "ISC"
+}
