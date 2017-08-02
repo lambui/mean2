@@ -5,6 +5,10 @@ const app = express();
 //init port #
 const port = 3000;
 
+//set up static folder
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+
 //body parser
 const bodyparser = require("body-parser");
 app.use(bodyparser.json()); //to parse json, to use req.body

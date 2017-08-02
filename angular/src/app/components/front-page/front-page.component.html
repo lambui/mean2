@@ -1,0 +1,17 @@
+<div *ngIf='all'>
+  <ul *ngFor='let i of all'>
+    <li>{{i.firstName}} {{i.lastName}} <button (click)='DeletePeople(i._id)'>delete</button></li>
+  </ul>
+</div>
+<form [formGroup]='compFormService.form' (submit)='AddPeople()'>
+  <label for="firstName">First Name:</label>
+  <input formControlName='firstName' id='firstName' type="text">
+
+  <label for="lastName">Last Name:</label>
+  <input formControlName='lastName' id='lastName' type="text">
+
+  <label for="DOB">DOB:</label>
+  <input formControlName='DOB' id='DOB' type="date">
+
+  <button type='submit' [disabled]='compFormService.form.valid == false'>Add</button>
+</form>
