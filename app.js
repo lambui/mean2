@@ -39,8 +39,8 @@ app.get('/', (req, res) => {
 });
 
     //first subroute
-const first = require('./routes/first');
-app.use('/first', first);
+const peopleRoute = require('./routes/people-route');
+app.use('/people', peopleRoute);
 
 //start app on port
 app.listen(port, () => {

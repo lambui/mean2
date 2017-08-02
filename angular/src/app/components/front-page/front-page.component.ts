@@ -30,10 +30,15 @@ export class FrontPageComponent implements OnInit {
 
   AddPeople()
   {
+    let date = (<string>this.compFormService.GetValueOfField('DOB')).split('-');
     let person = {
       firstName: this.compFormService.GetValueOfField('firstName'),
       lastName: this.compFormService.GetValueOfField('lastName'),
-      DOB: this.compFormService.GetValueOfField('DOB')
+      DOB: {
+        year: date[0],
+        month: date[1],
+        date: date[2]
+      }
     }
 
     this.peopleService.AddPeople(person)

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const people = require("../models/firstModel");
+const people = require("../models/people-model");
 
 function PrintError(err)
 {

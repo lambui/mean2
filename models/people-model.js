@@ -12,13 +12,23 @@ const peopleSchema = mongoose.Schema(
             required: true
         },
         DOB: {
-            type: String,
-            required: true
+            year: {
+                type: String,
+                required: true
+            },
+            month: {
+                type: String,
+                required: true
+            },
+            date: {
+                type: String,
+                required: true
+            }
         }
     }
 );
 
-const People = module.exports = mongoose.model('People', peopleSchema);
+const People = module.exports = mongoose.model('People', peopleSchema, 'People');
 
 module.exports.GetPeopleById = id => People.findById(id).exec();
 module.exports.GetPeopleByFirstName = firstName => People.find({firstName: firstName}).exec();
