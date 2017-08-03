@@ -8,7 +8,7 @@ declare var $: any;
   selector: 'app-front-page',
   templateUrl: './front-page.component.html',
   styleUrls: ['./front-page.component.css'],
-  providers: [FrontPageFormService]
+  providers: [FrontPageFormService],
 })
 export class FrontPageComponent implements OnInit {
 
@@ -29,14 +29,10 @@ export class FrontPageComponent implements OnInit {
         this.compFormService.SetValueOfField('DOB', this.ConvertDateToString(date));
       }
     });
-
-    this.GetAllPeople();
-  }
-
-  ngAfterViewInit()
-  {
     let date = new Date();
     this.compFormService.SetValueOfField('DOB', this.ConvertDateToString(date));
+
+    this.GetAllPeople();
   }
 
   ConvertDateToString(date: Date)
