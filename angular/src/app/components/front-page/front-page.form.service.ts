@@ -20,6 +20,11 @@ export class FrontPageFormService {
         return this.form.controls[fieldName].value;
     }
 
+    SetValueOfField(fieldName: string, value: any): any
+    {
+        this.form.controls[fieldName].setValue(value);
+    }
+
     ClearForm()
     {
         this.form.reset();

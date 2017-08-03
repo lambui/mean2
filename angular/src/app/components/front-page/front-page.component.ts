@@ -1,6 +1,8 @@
+import { AppMaterializeService } from '../../services/app-materialize/app-materialize.service';
 import { PeopleService } from '../../services/people/people.service';
 import { Component, OnInit } from '@angular/core';
 import { FrontPageFormService } from './front-page.form.service';
+declare var $: any;
 
 @Component({
   selector: 'app-front-page',
@@ -12,13 +14,34 @@ export class FrontPageComponent implements OnInit {
 
   all: any;
   constructor(
+    private appMaterializeService: AppMaterializeService,
     private peopleService: PeopleService,
     private compFormService: FrontPageFormService
   ) { }
 
   ngOnInit() {
     this.compFormService.InitForm();
+
+    this.appMaterializeService.InitDatePicker();
+    $('#DOB').pickadate('picker').on({
+      set: (setValue) => {
+        let date = new Date(setValue.select);
+        this.compFormService.SetValueOfField('DOB', this.ConvertDateToString(date));
+      }
+    });
+
     this.GetAllPeople();
+  }
+
+  ngAfterViewInit()
+  {
+    let date = new Date();
+    this.compFormService.SetValueOfField('DOB', this.ConvertDateToString(date));
+  }
+
+  ConvertDateToString(date: Date)
+  {
+    return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
   }
 
   GetAllPeople()

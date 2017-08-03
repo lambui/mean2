@@ -12,6 +12,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { RoutingModule } from './modules/routing/routing.module';
 
 //service imports
+import { AppMaterializeService } from './services/app-materialize/app-materialize.service';
 import { PeopleService } from './services/people/people.service';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PeopleService } from './services/people/people.service';
     RoutingModule
   ],
   providers: [
+    AppMaterializeService,
     PeopleService
   ],
   bootstrap: [AppComponent]
