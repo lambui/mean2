@@ -1,7 +1,10 @@
+import { PeopleDetailService } from '../../services/people-detail/people-detail.service';
+import { PeopleDetailComponent } from '../people-detail/people-detail.component';
 import { AppMaterializeService } from '../../services/app-materialize/app-materialize.service';
 import { PeopleService } from '../../services/people/people.service';
 import { Component, OnInit } from '@angular/core';
 import { FrontPageFormService } from './front-page.form.service';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -16,7 +19,10 @@ export class FrontPageComponent implements OnInit {
   constructor(
     private appMaterializeService: AppMaterializeService,
     private peopleService: PeopleService,
-    private compFormService: FrontPageFormService
+    private peopleDetailService: PeopleDetailService,
+    private compFormService: FrontPageFormService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -65,10 +71,22 @@ export class FrontPageComponent implements OnInit {
                                   err => console.log("error: " + err));
   }
 
-  DeletePeople(id: any)
+  DeletePeople(id: any) //start cleaning up dependent records before removing the to-be-removed record
+  {
+    this.peopleDetailService.RemoveDetailList(id)
+                            .subscribe(() => this.RemovePeople(id),
+                                        err => console.log("error: " + err));
+  }
+
+  RemovePeople(id: any) //remove the actual record in People collection
   {
     this.peopleService.DeletePeople(id)
                       .subscribe(() => this.GetAllPeople(),
                                   err => console.log("error: " + err));
+  }
+
+  ViewDetail(id: any)
+  {
+    this.router.navigate(['./detail/' + id], {relativeTo: this.route});
   }
 }

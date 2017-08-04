@@ -3,7 +3,7 @@
   <div *ngIf='all'>
     <ul *ngFor='let i of all' class='collection'>
       <div class='collection-item row valign-wrapper'>
-        <div class="col left">
+        <div class="col left cursor-pointer" (click)='ViewDetail(i._id)'>
           <i class='material-icons left'>face</i>
           <span class='left'>{{i.firstName}} {{i.lastName}}</span>
         </div>
@@ -33,5 +33,4 @@
 
     <button class='btn' type='submit' [disabled]='compFormService.form.valid == false'>Add</button>
   </form>
-
 </div>
