@@ -8,7 +8,7 @@ function PrintError(err)
 }
 
 router.get('/', (req, res, next) => {
-    let msg = "GET first/"
+    let msg = "GET people/"
     console.log(msg);
     res.send(msg);
 });
@@ -45,5 +45,9 @@ router.delete('/delete', (req, res, next) => {
             })
             .catch(err => PrintError(err));
 });
+
+//declare child routes
+const detailChildRoute = require('./people-detail-route');
+router.use('/detail', detailChildRoute);
 
 module.exports = router;
