@@ -7,8 +7,10 @@ Practicing making website using **MEAN stack**! and any awesome JS framework out
     + [ ] People's Info
       + [x] Ability to add people to database
       + [x] Ability to display list of people in database
-      + [ ] Ability to display detail page of info of every person in database
-      + [ ] Ability to add various different info to person detail
+      + [x] Ability to display detail page of info of every person in database
+      + [x] Ability to add various different info to person detail
+      + [ ] Ability to view each detail
+      + [ ] Ability to tag people into group
     + [ ] Authorization Capacity
   + [ ] **NodeJs**, **ExpressJs**
     + [x] Init project
@@ -17,10 +19,11 @@ Practicing making website using **MEAN stack**! and any awesome JS framework out
     + [x] Link static folder
     + [x] POST request to add document to collection
     + [x] DELETE request to remove document from collection
+    + [x] PUT request to update document in collection
   + [ ] **Angular**
     + [x] Init Angular
     + [x] Display all documents (tuples) in a mongodb collection (table)
-    + [ ] Detail page for document
+    + [x] Detail page for document
     + [x] Routing
     + [x] Navigation component
     + [x] Form to add stuff to database
@@ -28,8 +31,10 @@ Practicing making website using **MEAN stack**! and any awesome JS framework out
       + [x] GET request to get all documents
       + [x] POST request to add document
       + [x] DELETE request to remove document
+      + [x] PUT request to update document
     + [x] **Materialize** css framework
     + [x] **JQuery**
+    + [x] Resuable component with Input, Output
   + [x] **Mongodb**
     + [x] Link database
     + [x] Create first model, schema
