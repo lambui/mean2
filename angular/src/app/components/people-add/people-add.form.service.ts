@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable()
-export class FrontPageFormService {
+export class PeopleAddFormService {
     constructor(private formBuilder: FormBuilder) { }
 
     form: any;
     InitForm()
     {
+        let date = new Date();
+        let todayDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
         this.form = this.formBuilder.group({
             'firstName': ['', [Validators.required]],
             'lastName': ['', [Validators.required]],
-            'DOB': ['', [Validators.required]]
+            'DOB': [todayDate, [Validators.required]]
         });
     }
 
@@ -28,5 +30,12 @@ export class FrontPageFormService {
     ClearForm()
     {
         this.form.reset();
+        this.SetValueOfField('DOB', this.GetTodayDateString());
+    }
+
+    GetTodayDateString()
+    {
+        let date = new Date();
+        return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
     }
 }

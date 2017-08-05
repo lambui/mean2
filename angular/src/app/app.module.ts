@@ -9,6 +9,8 @@ import 'hammerjs'; //for material angular
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FrontPageComponent } from './components/front-page/front-page.component';
+import { PeopleListComponent } from './components/people-list/people-list.component';
+import { PeopleAddComponent } from './components/people-add/people-add.component';
 import { PeopleDetailComponent } from './components/people-detail/people-detail.component';
 
 //module imports
@@ -25,7 +27,9 @@ import { PeopleDetailService } from './services/people-detail/people-detail.serv
     AppComponent,
     FrontPageComponent,
     NavigationComponent,
-    PeopleDetailComponent
+    PeopleDetailComponent,
+    PeopleAddComponent,
+    PeopleListComponent
   ],
   imports: [
     BrowserModule,

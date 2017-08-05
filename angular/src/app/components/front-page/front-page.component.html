@@ -1,36 +1,4 @@
 <div class="container">
-  <!-- list of all people -->
-  <div *ngIf='all'>
-    <ul *ngFor='let i of all' class='collection'>
-      <div class='collection-item row valign-wrapper'>
-        <div class="col left cursor-pointer" (click)='ViewDetail(i._id)'>
-          <i class='material-icons left'>face</i>
-          <span class='left'>{{i.firstName}} {{i.lastName}}</span>
-        </div>
-        <button class='col s1 btn right' (click)='DeletePeople(i._id)'>delete</button>
-      </div>
-    </ul>
-  </div>
-
-  <!-- form to add more people to list -->
-  <form [formGroup]='compFormService.form' (submit)='AddPeople()'>
-    <div class="row">
-      <div class="col s6 input-field">
-        <label for="firstName">First Name:</label>
-        <input formControlName='firstName' id='firstName' type="text">
-      </div>
-
-      <div class="col s6 input-field">
-        <label for="lastName">Last Name:</label>
-        <input formControlName='lastName' id='lastName' type="text">
-      </div>
-      
-      <div class="col s3">
-        <label for="DOB">DOB:</label>
-        <input type="date" formControlName='DOB' id='DOB' class='datepicker center-align'>
-      </div>
-    </div>
-
-    <button class='btn' type='submit' [disabled]='compFormService.form.valid == false'>Add</button>
-  </form>
+  <app-people-list [peopleList]='all' (deletePeopleRespond)='DeletePeopleRespondHandler($event)'></app-people-list>
+  <button class="btn" (click)='RouteToAdd()'>Add More</button>
 </div>

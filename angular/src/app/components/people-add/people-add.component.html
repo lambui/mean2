@@ -1,0 +1,28 @@
+<div class="container">
+  <!-- form to add more people to list -->
+  <form [formGroup]='compFormService.form' (submit)='AddPeople()'>
+    <div class="row">
+      <div class="col s6 input-field">
+        <label for="firstName">First Name:</label>
+        <input formControlName='firstName' id='firstName' type="text">
+      </div>
+
+      <div class="col s6 input-field">
+        <label for="lastName">Last Name:</label>
+        <input formControlName='lastName' id='lastName' type="text">
+      </div>
+      
+      <div class="col s3">
+        <label for="DOB">DOB:</label>
+        <input type="date" formControlName='DOB' id='DOB' class='datepicker center-align'>
+      </div>
+    </div>
+
+    <button class='btn' type='submit' [disabled]='compFormService.form.valid == false'>Add</button>
+  </form>
+
+  <!-- Display list of newly added people -->
+  <app-people-list [peopleList]='newPeople' (deletePeopleRespond)='DeletePeopleRespondHandler($event)'></app-people-list>
+  <br>
+  <button class="btn" (click)='RouteBack()'>Back</button>
+</div>

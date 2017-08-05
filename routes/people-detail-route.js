@@ -13,7 +13,7 @@ router.post('/create', (req, res, next) => {
                 .catch(err => PrintError(err));
 });
 
-router.delete('/remove', (req, res, next) => {
+router.delete('/destroy', (req, res, next) => {
     peopleDetail.find({peopleId: req.query.peopleId})
                 .remove()
                 .exec()
@@ -26,6 +26,12 @@ router.delete('/remove', (req, res, next) => {
 router.post('/add', (req, res, next) => {
     peopleDetail.AddDetailToPeople(req.body.peopleId, req.body.detailBody)
                 .then(detailList => res.send(detailList))
+                .catch(err => PrintError(err));
+});
+
+router.put('/remove', (req, res, next) => {
+    peopleDetail.RemoveDetailFromList(req.body.peopleId, req.body.detailId)
+                .then(() => res.send("successfully remove a detail in detailList"))
                 .catch(err => PrintError(err));
 });
 

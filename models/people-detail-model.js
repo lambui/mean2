@@ -44,7 +44,7 @@ module.exports.AddDetailToPeople = (peopleId, detailBody) => {
                         {
                             return detail   .CreateDetailList(peopleId)
                                             .then(newDetailList => {
-                                                newDetailList.push(newDetail);
+                                                newDetailList.details.push(newDetail);
                                                 return newDetailList.save();
                                             });
                         }
@@ -54,4 +54,12 @@ module.exports.AddDetailToPeople = (peopleId, detailBody) => {
                             return detailList.save();
                         }
                     });
+};
+
+module.exports.RemoveDetailFromList = (peopleId, detailId) => {
+    return detail   .update(
+                        {peopleId: peopleId}, 
+                        {$pull: {details: {_id: detailId}}}
+                    )
+                    .exec();
 };

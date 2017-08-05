@@ -5,31 +5,30 @@ const backend = 'http://localhost:3000/people/detail';
 
 @Injectable()
 export class PeopleDetailService {
-
   constructor(
     private http: HttpClient
   ) { }
 
-  GetDetailList(peopleId)
+  GetDetailList(peopleId: string)
   {
     let url = backend + "/" + peopleId;
     return this.http.get(url);
   }
 
-  CreateDetailList(peopleId)
+  CreateDetailList(peopleId: string)
   {
     let url = backend + '/create';
     let jsonObj = {peopleId: peopleId};
     return this.http.post(url, jsonObj);
   }
 
-  RemoveDetailList(peopleId)
+  RemoveDetailList(peopleId: string)
   {
-    let url = backend + '/remove?peopleId=' + peopleId;
+    let url = backend + '/destroy?peopleId=' + peopleId;
     return this.http.delete(url);
   }
 
-  AddDetail(peopleId, detailBody)
+  AddDetail(peopleId: string, detailBody)
   {
     let url = backend + '/add';
     let jsonObj = {
@@ -37,5 +36,11 @@ export class PeopleDetailService {
       detailBody: detailBody
     };
     return this.http.post(url, jsonObj);
+  }
+
+  RemoveDetail(peopleId: string, detailId: string)
+  {
+    let url = backend + '/remove';
+    return this.http.put(url, {peopleId: peopleId, detailId: detailId});
   }
 }

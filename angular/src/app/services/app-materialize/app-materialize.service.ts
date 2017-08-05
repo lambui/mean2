@@ -27,4 +27,12 @@ export class AppMaterializeService {
 
     return $('.datepicker').pickadate('picker');
   }
+
+  TextareaChangeValue(targetTextarea: string, value: string, label?: string)
+  {
+    $(targetTextarea).val(value);
+    $(targetTextarea).trigger('autoresize');
+    if(value == "" && label != null)
+      $(label).removeClass('active');
+  }
 }
