@@ -29,7 +29,10 @@ export class PeopleDetailViewComponent implements OnInit {
 
   PeopleSuperService_GetInfoFromDetailIdRespondHandler(respond)
   {
-    this.detail = respond.details[0];
+    if(respond.details.length <= 0)
+      this.router.navigate(['./404']);
+    else
+      this.detail = respond.details[0];
   }
 
   RouteBack()

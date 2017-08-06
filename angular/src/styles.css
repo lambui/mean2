@@ -4,3 +4,9 @@
 .cursor-pointer{
     cursor: pointer;
 }
+
+.center-align-block{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
