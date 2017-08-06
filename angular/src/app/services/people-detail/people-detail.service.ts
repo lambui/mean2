@@ -43,4 +43,10 @@ export class PeopleDetailService {
     let url = backend + '/remove';
     return this.http.put(url, {peopleId: peopleId, detailId: detailId});
   }
+
+  GetDetail(peopleId: string, detailId: string)
+  {
+    let url = backend + '/' + peopleId + '/specific/' + detailId;
+    return this.http.get(url);         
+  }
 }

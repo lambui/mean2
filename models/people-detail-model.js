@@ -16,7 +16,7 @@ const detailSchema = mongoose.Schema(
 
 const detail = module.exports = mongoose.model('PeopleDetail', detailSchema, 'PeopleDetail');
 
-module.exports.GetDetailById = id => detail.findById(id).exec();
+module.exports.GetDetailsById = id => detail.findById(id).exec();
 module.exports.GetDetailsByPeopleId = peopleId => detail.findOne({peopleId: peopleId}).exec();
 
 module.exports.CreateDetailList = peopleId => {
@@ -63,3 +63,11 @@ module.exports.RemoveDetailFromList = (peopleId, detailId) => {
                     )
                     .exec();
 };
+
+module.exports.GetDetail = (peopleId, detailId) => {
+    return detail   .findOne(
+                        { peopleId: peopleId }, 
+                        { details: { $elemMatch: { _id: detailId }} }
+                    )
+                    .exec();
+}

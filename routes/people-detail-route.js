@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router({mergeParams: true}); //for child route to access parent route params (mergeParams: true)
 const peopleDetail = require("../models/people-detail-model");
 
-function PrintError(err)
+function PrintError(err, res)
 {
     console.log("error: " + err);
+    if(res != null)
+        res.send({error: true, msg: err});
 }
 
 router.post('/create', (req, res, next) => {
@@ -38,6 +40,12 @@ router.put('/remove', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
     peopleDetail.GetDetailsByPeopleId(req.params.id)
                 .then(detailList => res.send(detailList))
+                .catch(err => PrintError(err));
+});
+
+router.get('/:id/specific/:detailId', (req, res, next) => {
+    peopleDetail.GetDetail(req.params.id, req.params.detailId)
+                .then(detail => res.send(detail))
                 .catch(err => PrintError(err));
 });
 

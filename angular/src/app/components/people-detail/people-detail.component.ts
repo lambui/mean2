@@ -1,3 +1,4 @@
+import { PeopleSuperService } from '../../services/people-super/people-super.service';
 import { AppMaterializeService } from '../../services/app-materialize/app-materialize.service';
 import { PeopleService } from '../../services/people/people.service';
 import { PeopleDetailService } from '../../services/people-detail/people-detail.service';
@@ -16,27 +17,22 @@ export class PeopleDetailComponent implements OnInit {
     private peopleService: PeopleService,
     private router: Router, 
     private route: ActivatedRoute,
-    private appMaterializeService: AppMaterializeService
+    private appMaterializeService: AppMaterializeService,
+    private peopleSuperService: PeopleSuperService
   ) { }
 
   people: any;
   DOB: any;
   detailList: any;
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      let id = params['peopleId'];
-      this.peopleService.GetPeople(id)
-                        .subscribe((people: any) => {
-                          if(people.error == true)
-                            console.log(people.msg);
-                          else
-                          {
-                            this.people = people;
-                            this.DOB = this.Get8DigitDOBString();
-                            this.GetDetailList();
-                          }
-                        });
-    });
+    this.peopleSuperService.GetInfoFromPeopleId(this.route, this);
+  }
+
+  PeopleSuperService_GetInfoFromPeopleIdRespondHandler(respond)
+  {
+    this.people = this.peopleSuperService.people;
+    this.DOB = this.Get8DigitDOBString();
+    this.GetDetailList();
   }
 
   GetDetailList()
@@ -78,5 +74,15 @@ export class PeopleDetailComponent implements OnInit {
                             .subscribe(() => {
                               this.GetDetailList(); 
                             });
+  }
+
+  ViewDetail(detailId: string)
+  {
+    this.router.navigate(['./' + detailId], {relativeTo: this.route});
+  }
+
+  RouteBack()
+  {
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 }

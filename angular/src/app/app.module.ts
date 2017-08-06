@@ -12,6 +12,7 @@ import { FrontPageComponent } from './components/front-page/front-page.component
 import { PeopleListComponent } from './components/people-list/people-list.component';
 import { PeopleAddComponent } from './components/people-add/people-add.component';
 import { PeopleDetailComponent } from './components/people-detail/people-detail.component';
+import { PeopleDetailViewComponent } from './components/people-detail-view/people-detail-view.component';
 
 //module imports
 import { RoutingModule } from './modules/routing/routing.module';
@@ -21,6 +22,7 @@ import { AngularMaterialModule } from './modules/angular-material/angular-materi
 import { AppMaterializeService } from './services/app-materialize/app-materialize.service';
 import { PeopleService } from './services/people/people.service';
 import { PeopleDetailService } from './services/people-detail/people-detail.service';
+import { PeopleSuperService } from './services/people-super/people-super.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { PeopleDetailService } from './services/people-detail/people-detail.serv
     NavigationComponent,
     PeopleDetailComponent,
     PeopleAddComponent,
-    PeopleListComponent
+    PeopleListComponent,
+    PeopleDetailViewComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { PeopleDetailService } from './services/people-detail/people-detail.serv
   providers: [
     AppMaterializeService,
     PeopleService,
-    PeopleDetailService
+    PeopleDetailService,
+    PeopleSuperService
   ],
   bootstrap: [AppComponent]
 })
