@@ -28,11 +28,11 @@
     <!-- list of detail -->
     <ul class="collection" *ngFor='let detail of detailList.details'>
       <div class='collection-item valign-wrapper row'>
-        <div (click)='ViewDetail(detail._id)' class='cursor-pointer'>
-          <i class="material-icons col">format_list_bulleted</i>
-          <span class='col'>{{detail.body}}</span>
+        <div (click)='ViewDetail(detail._id)' class='cursor-pointer col s8 m10 l11 left'>
+          <i class="material-icons left col">format_list_bulleted</i>
+          <span class='truncate left col s10'>{{detail.body}}</span>
         </div>
-        <button class="btn col s4 m2 l1" (click)='RemoveDetail(detail._id)'>Remove</button>
+        <button class="btn col s4 m2 l1 right" (click)='RemoveDetail(detail._id)'>Remove</button>
       </div>
     </ul>
   </div>

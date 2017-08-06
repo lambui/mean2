@@ -1,11 +1,11 @@
 <div *ngIf='peopleList'>
   <ul *ngFor='let person of peopleList; let i = index' class='collection'>
     <div class='collection-item row valign-wrapper'>
-      <div class="col left cursor-pointer" (click)='ViewDetail(person._id)'>
-        <i class='material-icons left'>face</i>
-        <span class='left'>{{person.firstName}} {{person.lastName}}</span>
+      <div class="col s9 m10 l11 left cursor-pointer" (click)='ViewDetail(person._id)'>
+        <i class='material-icons left col'>face</i>
+        <span class='left truncate col s10'>{{person.firstName}} {{person.lastName}}</span>
       </div>
-      <button class='col s1 btn right' (click)='DeletePeople(person._id, i)'>delete</button>
+      <button class='col s3 m2 l1 btn right flow-text' (click)='DeletePeople(person._id, i)'>delete</button>
     </div>
   </ul>
 </div>
