@@ -3,5 +3,13 @@
     {{detail.body}}
   </div>
 
+  <div *ngIf='alertTags'>
+    <div *ngFor='let tag of alertTags'>
+      <div class="chip red white-text row">
+        <span>{{tag.alertType}}</span>
+      </div>
+    </div>
+  </div>
+
   <button class="btn" (click)='RouteBack()'>Back</button>
 </div>

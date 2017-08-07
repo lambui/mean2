@@ -46,7 +46,7 @@ export class PeopleDetailService {
 
   GetDetail(peopleId: string, detailId: string)
   {
-    let url = backend + '/' + peopleId + '/specific/' + detailId;
+    let url = backend + '/' + peopleId + '/' + detailId;
     return this.http.get(url);         
   }
 }

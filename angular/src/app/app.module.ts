@@ -24,6 +24,7 @@ import { AppMaterializeService } from './services/app-materialize/app-materializ
 import { PeopleService } from './services/people/people.service';
 import { PeopleDetailService } from './services/people-detail/people-detail.service';
 import { PeopleSuperService } from './services/people-super/people-super.service';
+import { AlertTagService } from './services/alert-tag/alert-tag.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { PeopleSuperService } from './services/people-super/people-super.service
     AppMaterializeService,
     PeopleService,
     PeopleDetailService,
-    PeopleSuperService
+    PeopleSuperService,
+    AlertTagService
   ],
   bootstrap: [AppComponent]
 })

@@ -70,4 +70,4 @@ module.exports.GetDetail = (peopleId, detailId) => {
                         { details: { $elemMatch: { _id: detailId }} }
                     )
                     .exec();
-}
+};

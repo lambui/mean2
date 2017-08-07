@@ -43,10 +43,14 @@ router.get('/:id', (req, res, next) => {
                 .catch(err => PrintError(err));
 });
 
-router.get('/:id/specific/:detailId', (req, res, next) => {
+router.get('/:id/:detailId', (req, res, next) => {
     peopleDetail.GetDetail(req.params.id, req.params.detailId)
                 .then(detail => res.send(detail))
                 .catch(err => PrintError(err));
 });
+
+//declare child routes
+const detailViewRoute = require('./detail-view-route');
+router.use('/:id/:detailId', detailViewRoute);
 
 module.exports = router;
