@@ -9,8 +9,9 @@ Practicing making website using **MEAN stack**! and any awesome JS framework out
       + [x] Ability to display list of people in database
       + [x] Ability to display detail page of info of every person in database
       + [x] Ability to add various different info to person detail
-      + [ ] Ability to view each detail
+      + [x] Ability to view each detail
       + [ ] Ability to tag people into group
+      + [ ] Ability to add alert tags to each details of person
     + [ ] Authorization Capacity
   + [ ] **NodeJs**, **ExpressJs**
     + [x] Init project
@@ -35,6 +36,7 @@ Practicing making website using **MEAN stack**! and any awesome JS framework out
     + [x] **Materialize** css framework
     + [x] **JQuery**
     + [x] Resuable component with Input, Output
+    + [x] Create 404 route
   + [x] **Mongodb**
     + [x] Link database
     + [x] Create first model, schema
