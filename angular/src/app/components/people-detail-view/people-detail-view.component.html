@@ -11,5 +11,10 @@
     </div>
   </div>
 
+  <div *ngIf='detail'>
+    <app-alert-tag-banner [people]='people' [detail]='detail'></app-alert-tag-banner>
+  </div>
+
+  <button class="btn">Add Alert</button>
   <button class="btn" (click)='RouteBack()'>Back</button>
 </div>

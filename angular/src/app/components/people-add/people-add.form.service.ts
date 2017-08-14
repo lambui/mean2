@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
+import { CustomFormBuilder } from '../../general-classes/CustomFormBuilder';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable()
-export class PeopleAddFormService {
-    constructor(private formBuilder: FormBuilder) { }
+export class PeopleAddFormService extends CustomFormBuilder {
+    constructor(protected formBuilder: FormBuilder)
+    {
+        super(formBuilder);
+    }
 
-    form: any;
-    InitForm()
+    InitForm(): void
     {
         let date = new Date();
         let todayDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
@@ -19,17 +22,17 @@ export class PeopleAddFormService {
 
     GetValueOfField(fieldName: string): any
     {
-        return this.form.controls[fieldName].value;
+      return super.GetValueOfField(fieldName);
     }
-
+  
     SetValueOfField(fieldName: string, value: any): any
     {
-        this.form.controls[fieldName].setValue(value);
+      super.SetValueOfField(fieldName, value);
     }
 
     ClearForm()
     {
-        this.form.reset();
+        super.ClearForm();
         this.SetValueOfField('DOB', this.GetTodayDateString());
     }
 

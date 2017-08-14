@@ -35,4 +35,11 @@ export class AppMaterializeService {
     if(value == "" && label != null)
       $(label).removeClass('active');
   }
+
+  InitFormSelect()
+  {
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  }
 }

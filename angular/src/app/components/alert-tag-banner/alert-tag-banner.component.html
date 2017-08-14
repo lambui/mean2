@@ -1,0 +1,24 @@
+<!-- display tags -->
+<div *ngIf='alertTags'>
+  <div *ngIf='alertTags'>
+    <div *ngFor='let tag of alertTags'>
+      <div class="chip red white-text row">
+        <span>{{tag.alertType}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- form to add tag -->
+<form [formGroup]='compFormService.form' (submit)='AddAlertTag()' novalidate>
+  <div class="row">
+    <div class="col s6">
+      <label for="">Alert Type:</label>
+      <select class='browser-default' formControlName='alertType' value='Choose your option'>
+        <option disabled selected>Choose your option</option>
+        <option *ngFor='let type of AlertTypes' [value]='type'>{{type}}</option>
+      </select>
+    </div>
+  </div>
+  <button class='btn' type='submit' [disabled]='compFormService.form.valid == false'>Add</button>
+</form>
