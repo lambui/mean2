@@ -16,9 +16,9 @@ export class AlertTagBannerComponent implements OnInit, DoCheck {
   init: boolean = false;
 
   AlertTypes = [
-    "danger",
     "attention",
-    "attention2"
+    "reminder",
+    "urgent"
   ]; 
 
   constructor(
@@ -48,12 +48,34 @@ export class AlertTagBannerComponent implements OnInit, DoCheck {
       console.log(this.people + " " + this.detail);
       return;
     }
+    this.FetchAlertTags();
+  }
+
+  showForm: boolean = false;
+  ShowForm()
+  {
+    this.showForm = true;
+  }
+  HideForm()
+  {
+    this.showForm = false;
+  }
+
+  FetchAlertTags()
+  {
     this.alertTagService.GetAlertTagsOfDetail(this.people._id, this.detail._id)
                         .subscribe(tags => this.alertTags = tags);
   }
 
   AddAlertTag()
   {
-    console.log(this.compFormService.GetValueOfField('alertType'));
+    let msg = this.compFormService.GetValueOfField('msg');
+    let alertJson = 
+    {
+      alertType: this.compFormService.GetValueOfField('alertType'),
+      msg: msg == ""? null : msg
+    }
+    this.alertTagService.AddAlertTagsToDetail(this.people._id, this.detail._id, alertJson)
+                        .subscribe(newAlert => this.FetchAlertTags());
   }
 }

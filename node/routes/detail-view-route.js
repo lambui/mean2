@@ -16,7 +16,7 @@ router.get('/alerttags', (req, res, next) => {
 });
 
 router.post('/alerttags/add', (req, res, next) => {
-    alertTag.AddAlertTagToDetail(req.params.id, req.params.detailId, "alert")
+    alertTag.AddAlertTagToDetail(req.params.id, req.params.detailId, req.body.alertType, req.body.msg)
             .then(savedTag => res.send(savedTag))
             .catch(err => PrintError(err, res));
 });

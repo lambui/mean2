@@ -15,4 +15,10 @@ export class AlertTagService {
     let url = backend + '/' + peopleId + '/' + detailId + '/alerttags';
     return this.http.get(url);
   }
+
+  AddAlertTagsToDetail(peopleId: string, detailId: string, alertJson: any)
+  {
+    let url = backend + '/' + peopleId + '/' + detailId + '/alerttags/add';
+    return this.http.post(url, alertJson);
+  }
 }

@@ -1,20 +1,11 @@
-<div class="container" *ngIf='people'>
+<div class="container" *ngIf='people && detail'>
   <div *ngIf='detail'>
     {{detail.body}}
   </div>
 
-  <div *ngIf='alertTags'>
-    <div *ngFor='let tag of alertTags'>
-      <div class="chip red white-text row">
-        <span>{{tag.alertType}}</span>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf='detail'>
+  <div>
     <app-alert-tag-banner [people]='people' [detail]='detail'></app-alert-tag-banner>
   </div>
-
-  <button class="btn">Add Alert</button>
+  
   <button class="btn" (click)='RouteBack()'>Back</button>
 </div>

@@ -1,24 +1,37 @@
 <!-- display tags -->
 <div *ngIf='alertTags'>
   <div *ngIf='alertTags'>
-    <div *ngFor='let tag of alertTags'>
-      <div class="chip red white-text row">
-        <span>{{tag.alertType}}</span>
-      </div>
+    <div *ngFor='let tag of alertTags' class="chip red white-text col">
+      <span>{{tag.alertType}}</span>
     </div>
+    <button *ngIf='showForm == false' class="btn btn-floating blue" (click)='ShowForm()'>
+      <i class="material-icons">add</i>
+    </button>
+    <button *ngIf='showForm' class="btn btn-floating orange" (click)='HideForm()'>
+      <i class="material-icons">remove</i>
+    </button>
   </div>
 </div>
 
 <!-- form to add tag -->
-<form [formGroup]='compFormService.form' (submit)='AddAlertTag()' novalidate>
-  <div class="row">
-    <div class="col s6">
-      <label for="">Alert Type:</label>
-      <select class='browser-default' formControlName='alertType' value='Choose your option'>
-        <option disabled selected>Choose your option</option>
-        <option *ngFor='let type of AlertTypes' [value]='type'>{{type}}</option>
-      </select>
+<div *ngIf='showForm'>
+  <form [formGroup]='compFormService.form' (submit)='AddAlertTag()' novalidate>
+    <div class="row">
+      <div class="col s3 input-field">
+        <md-select [style.width]="'100%'" placeholder="Alert type" formControlName='alertType'>
+          <md-option *ngFor='let type of AlertTypes' [value]='type'>
+            {{type}}
+          </md-option>
+        </md-select>
+      </div>
     </div>
-  </div>
-  <button class='btn' type='submit' [disabled]='compFormService.form.valid == false'>Add</button>
-</form>
+    
+    <div class="row">  
+      <div class="col s3 input-field">
+        <label for="msg">Alert message</label>
+        <textarea class='materialize-textarea' id="msg" formControlName='msg'></textarea>
+      </div>
+    </div>
+    <button class='btn' type='submit' [disabled]='compFormService.form.valid == false'>Add</button>
+  </form>
+</div>
