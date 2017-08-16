@@ -10,3 +10,10 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.chip .chip-icon {
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+}

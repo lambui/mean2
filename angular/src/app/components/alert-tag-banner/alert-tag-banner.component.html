@@ -1,9 +1,28 @@
 <!-- display tags -->
 <div *ngIf='alertTags'>
   <div *ngIf='alertTags'>
-    <div *ngFor='let tag of alertTags' class="chip red white-text col">
-      <span>{{tag.alertType}}</span>
-    </div>
+    <span *ngFor='let tag of alertTags' [ngSwitch]='tag.alertType'>
+      <div *ngSwitchDefault class="chip gray black-text col"> <!--default: note-->
+        <span>{{tag.alertType}}</span>
+        <i class='material-icons chip-icon'>cloud</i>
+      </div>
+      <div *ngSwitchCase='AlertTypes[0]' class="chip orange white-text col"> <!--attention-->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">error</i>
+      </div>
+      <div *ngSwitchCase='AlertTypes[1]' class="chip green white-text col"> <!--reminder-->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">alarm</i>
+      </div>
+      <div *ngSwitchCase='AlertTypes[2]' class="chip red white-text col pulse"> <!--urgent-->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">warning</i>
+      </div>
+      <div *ngSwitchCase='AlertTypes[3]' class="chip red white-text col"> <!--alert-->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">warning</i>
+      </div>
+    </span>
     <button *ngIf='showForm == false' class="btn btn-floating blue" (click)='ShowForm()'>
       <i class="material-icons">add</i>
     </button>

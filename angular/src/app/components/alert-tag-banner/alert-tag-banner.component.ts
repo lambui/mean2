@@ -18,7 +18,9 @@ export class AlertTagBannerComponent implements OnInit, DoCheck {
   AlertTypes = [
     "attention",
     "reminder",
-    "urgent"
+    "urgent",
+    "alert",
+    "note"
   ]; 
 
   constructor(
