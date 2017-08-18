@@ -11,6 +11,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FrontPageComponent } from './components/front-page/front-page.component';
 import { PeopleListComponent } from './components/people-list/people-list.component';
+import { AlertTagListComponent } from './components/alert-tag-list/alert-tag-list.component';
 import { AlertTagBannerComponent } from './components/alert-tag-banner/alert-tag-banner.component';
 import { PeopleAddComponent } from './components/people-add/people-add.component';
 import { PeopleDetailComponent } from './components/people-detail/people-detail.component';
@@ -37,7 +38,8 @@ import { AlertTagService } from './services/alert-tag/alert-tag.service';
     PeopleListComponent,
     PeopleDetailViewComponent,
     NotFoundComponent,
-    AlertTagBannerComponent
+    AlertTagBannerComponent,
+    AlertTagListComponent
   ],
   imports: [
     BrowserModule,

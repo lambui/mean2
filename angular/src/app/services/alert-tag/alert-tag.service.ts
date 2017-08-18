@@ -16,6 +16,12 @@ export class AlertTagService {
     return this.http.get(url);
   }
 
+  GetAlertTagsBelongToPerson(peopleId: string)
+  {
+    let url = backend + '/' + peopleId + '/alerttags';
+    return this.http.get(url); 
+  }
+
   AddAlertTagsToDetail(peopleId: string, detailId: string, alertJson: any)
   {
     let url = backend + '/' + peopleId + '/' + detailId + '/alerttags/add';

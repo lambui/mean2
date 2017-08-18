@@ -1,0 +1,32 @@
+<!-- mode 1: type collapse -->
+<span *ngIf='tagList'>
+  <span *ngFor='let tag of tagList' [ngSwitch]='tag.alertType'>
+    <span *ngIf='CheckTag(tag)'>
+      <div *ngSwitchDefault class="chip gray black-text"> <!-- default: note -->
+        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
+        <span>{{tag.alertType}}</span>
+        <i class='material-icons chip-icon'>cloud</i>
+      </div>
+      <div *ngSwitchCase='alertTypes[0]' class="chip orange white-text"> <!--attention-->
+        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">error</i>
+      </div>
+      <div *ngSwitchCase='alertTypes[1]' class="chip green white-text"> <!--reminder-->
+        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">alarm</i>
+      </div>
+      <div *ngSwitchCase='alertTypes[2]' class="chip red white-text pulse"> <!--urgent-->
+        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">warning</i>
+      </div>
+      <div *ngSwitchCase='alertTypes[3]' class="chip red white-text"> <!--alert-->
+        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
+        <span>{{tag.alertType}}</span>
+        <i class="material-icons chip-icon">warning</i>
+      </div>
+    </span>
+  </span>
+</span>

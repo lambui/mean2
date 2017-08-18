@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router({mergeParams: true}); //for child route to access parent route params (mergeParams: true)
 const peopleDetail = require("../models/people-detail-model");
+const alertTag = require('../models/alert-tag-model');
 
 function PrintError(err, res)
 {
@@ -41,6 +42,12 @@ router.get('/:id', (req, res, next) => {
     peopleDetail.GetDetailsByPeopleId(req.params.id)
                 .then(detailList => res.send(detailList))
                 .catch(err => PrintError(err));
+});
+
+router.get('/:id/alerttags', (req, res, next) => {
+    alertTag.GetAllAlertTagsOfPerson(req.params.id)
+            .then(tags => res.send(tags))
+            .catch(err => PrintError(err));
 });
 
 router.get('/:id/:detailId', (req, res, next) => {

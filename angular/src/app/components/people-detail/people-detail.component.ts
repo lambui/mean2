@@ -1,3 +1,4 @@
+import { AlertTagService } from '../../services/alert-tag/alert-tag.service';
 import { PeopleSuperService } from '../../services/people-super/people-super.service';
 import { AppMaterializeService } from '../../services/app-materialize/app-materialize.service';
 import { PeopleService } from '../../services/people/people.service';
@@ -15,6 +16,7 @@ export class PeopleDetailComponent implements OnInit {
   constructor(
     private peopleDetailService: PeopleDetailService,
     private peopleService: PeopleService,
+    private alertTagService: AlertTagService,
     private router: Router, 
     private route: ActivatedRoute,
     private appMaterializeService: AppMaterializeService,
@@ -24,6 +26,7 @@ export class PeopleDetailComponent implements OnInit {
   people: any;
   DOB: any;
   detailList: any;
+  alertTags: any;
   ngOnInit() {
     this.peopleSuperService.GetInfoFromPeopleId(this.route, this);
   }
@@ -33,12 +36,19 @@ export class PeopleDetailComponent implements OnInit {
     this.people = this.peopleSuperService.people;
     this.DOB = this.Get8DigitDOBString();
     this.GetDetailList();
+    this.GetAlertTags();
   }
 
   GetDetailList()
   {
     this.peopleDetailService.GetDetailList(this.people._id)
                             .subscribe(detailList => this.detailList = detailList);
+  }
+
+  GetAlertTags()
+  {
+    this.alertTagService.GetAlertTagsBelongToPerson(this.people._id)
+                        .subscribe(tags => this.alertTags = tags);
   }
 
   Get8DigitDOBString()

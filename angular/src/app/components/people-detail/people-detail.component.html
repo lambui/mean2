@@ -23,6 +23,10 @@
       </div>
     </div>
   </div> <!-- end of Information card -->
+
+  <div *ngIf='alertTags'>
+    <app-alert-tag-list [tagList]='alertTags' [mode]='1'></app-alert-tag-list>
+  </div>
  
   <div *ngIf='detailList'>
     <!-- list of detail -->
