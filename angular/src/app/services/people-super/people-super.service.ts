@@ -3,6 +3,10 @@ import { PeopleService } from '../people/people.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/observable/forkJoin';
+import * as Rx from 'rxjs';
+
 @Injectable()
 export class PeopleSuperService {
 
@@ -60,6 +64,28 @@ export class PeopleSuperService {
                                     component.PeopleSuperService_GetInfoFromDetailIdRespondHandler(detailPackage);
                                 }
                               });
+    });
+  }
+
+  GetInfoFromPeopleIdAndDetailId(route: ActivatedRoute, component: any)
+  {
+    route.params.subscribe(params => {
+      let id = params['peopleId'];
+      let detailId = params['detailId'];
+      let obs1 = this.peopleService .GetPeople(id);
+      let obs2 = this.peopleDetailService .GetDetail(id, detailId);
+      
+      Rx.Observable.forkJoin(obs1, obs2).subscribe((res: any) => {
+        if(res[0].error == true || res[1].error == true)
+        {
+          this.router.navigate(['./404']);
+        }
+        else
+        {
+          if(component.PeopleSuperService_GetInfoFromPeopleIdAndDetailId)
+            component.PeopleSuperService_GetInfoFromPeopleIdAndDetailId(res);
+        }
+      })
     });
   }
 }

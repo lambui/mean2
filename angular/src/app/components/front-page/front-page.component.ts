@@ -32,7 +32,7 @@ export class FrontPageComponent implements OnInit {
   GetAllPeople()
   {
     this.peopleService.GetAllPeople()
-                      .subscribe(list => {this.all = list},
+                      .subscribe((list: any) => {this.all = list;},
                                   err => {console.log("error: " + err)});
   }
 

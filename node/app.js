@@ -42,6 +42,14 @@ app.get('/', (req, res) => {
 const peopleRoute = require('./routes/people-route');
 app.use('/people', peopleRoute);
 
+//graphQL
+const expressGraphQL = require('express-graphql');
+const graphQLSchema = require('./graphQL/schema');
+app.use('/graphql', expressGraphQL({
+    schema: graphQLSchema,
+    graphiql: true,
+}));
+
 //start app on port
 app.listen(port, () => {
     console.log("Server starts on port " + port);
