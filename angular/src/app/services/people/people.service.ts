@@ -5,7 +5,7 @@ import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/toArray";
 import "rxjs/add/operator/map";
 
-const backend = 'http://localhost:3000/people';
+//const backend = 'http://localhost:3000/people';
 const graphql = 'http://localhost:3000/graphql';
 
 @Injectable()
@@ -58,13 +58,51 @@ export class PeopleService {
 
   AddPeople(person: any) //does not send POST request until subscibe is called to return value
   {
-    let url = backend + '/add';
-    return this.http.post(url, person);
+    //let url = backend + '/add';
+    let url = graphql;
+    let mutationField = 'people_add_object';
+    let mutationString = `
+    mutation{
+      ${mutationField}(newPeople: {
+        firstName: "${person.firstName}",
+        lastName: "${person.lastName}",
+        DOB: {
+          year: "${person.DOB.year}",
+          month: "${person.DOB.month}", 
+          date: "${person.DOB.date}"
+        }
+      })
+      {
+        _id,
+        firstName,
+        lastName
+      }
+    }
+    `;
+    let mutationJson = {
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
   }
 
   DeletePeople(personId: any)
   {
-    let url = backend + '/delete?_id=' + personId;
-    return this.http.delete(url);
+    //let url = backend + '/delete?_id=' + personId;
+    let url = graphql;
+    let mutationField = 'people_remove';
+    let mutationString = `
+    mutation{
+      ${mutationField}(_id: "${personId}")
+      {
+        _id
+      }
+    }
+    `;
+    let mutationJson = {
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
   }
 }
