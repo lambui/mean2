@@ -9,12 +9,25 @@ const {
     GraphQLInputObjectType
 } = require('graphql');
 
-const graphqlComposeMongoose = require('graphql-compose-mongoose');
-const People = require("../models/people-model");
-const PeopleCompose = graphqlComposeMongoose.composeWithMongoose(People, {});
-const PeopleType = PeopleCompose.getType();
+const {
+    People,
+    PeopleCompose,
+    PeopleType,
+    PeopleDetail,
+    PeopleDetailCompose,
+    PeopleDetailType
+} = require('./type');
 
 const axios = require('axios');
+
+const DetailType = new GraphQLObjectType({
+    name: 'PeopleDetailDetail',
+    fields: {
+        create_at: {type: GraphQLString},
+        body: {type: GraphQLString},
+        _id: {type: GraphQLString}
+    }
+})
 
 const rootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -32,6 +45,30 @@ const rootQuery = new GraphQLObjectType({
             },
             resolve(parentValue, args){
                 return People.findOne({_id: args._id}).exec();
+            }
+        },
+        people_detail: {
+            type: PeopleDetailType,
+            args: {
+                peopleId: {type: new GraphQLNonNull(GraphQLString)}
+            },
+            resolve(parentValue, args){
+                return PeopleDetail .findOne({peopleId: args.peopleId})
+                                    .exec();
+            }
+        },
+        specific_detail: {
+            type: PeopleDetailType,
+            args: {
+                peopleId: {type: new GraphQLNonNull(GraphQLString)},
+                detailId: {type: new GraphQLNonNull(GraphQLString)}
+            },
+            resolve(parentValue, args) {
+                return PeopleDetail.findOne(
+                                        { peopleId: args.peopleId }, 
+                                        { details: { $elemMatch: { _id: args.detailId }} }
+                                    )
+                                    .exec();
             }
         }
     }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import 'rxjs/add/operator/map';
 
 const backend = 'http://localhost:3000/people/detail';
+const graphql = 'http://localhost:3000/graphql';
 
 @Injectable()
 export class PeopleDetailService {
@@ -11,8 +13,23 @@ export class PeopleDetailService {
 
   GetDetailList(peopleId: string)
   {
-    let url = backend + "/" + peopleId;
-    return this.http.get(url);
+    //let url = backend + "/" + peopleId;
+    let url = graphql + '?query=';
+    let queryField = 'people_detail';
+    let queryString = `
+    {
+      ${queryField}(peopleId: "${peopleId}"){
+        details {
+          _id
+          create_at
+          body
+        }
+        peopleId
+      }
+    }`
+    url += queryString;
+    return this.http.get(url)
+                    .map((res: any) => res.data[queryField]);
   }
 
   CreateDetailList(peopleId: string)
@@ -46,7 +63,23 @@ export class PeopleDetailService {
 
   GetDetail(peopleId: string, detailId: string)
   {
-    let url = backend + '/' + peopleId + '/' + detailId;
-    return this.http.get(url);         
+    //let url = backend + '/' + peopleId + '/' + detailId;
+    let url = graphql + '?query=';
+    let queryField = 'specific_detail';
+    let queryString = `
+    {
+      ${queryField}(peopleId: "${peopleId}", detailId:"${detailId}"){
+        peopleId
+        details{
+          _id
+          create_at
+          body
+        }
+      }
+    }
+    `;
+    url += queryString;
+    return this.http.get(url)
+                    .map((res: any) => res.data[queryField]);         
   }
 }
