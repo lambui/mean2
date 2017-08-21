@@ -1,159 +1,26 @@
 const {
     GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt,
-    GraphQLSchema,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLFloat,
-    GraphQLInputObjectType
+    GraphQLSchema
 } = require('graphql');
 
+const GraphQLInit = require('./graphql-init');
+
+//people-model middleware
 const {
-    People,
-    PeopleCompose,
-    PeopleType,
-    PeopleDetail,
-    PeopleDetailCompose,
-    PeopleDetailType
-} = require('./type');
+    PeopleQuery,
+    PeopleMutation
+} = require('./people-model-graphql');
+GraphQLInit.AppendQueriesAndMutations(PeopleQuery, PeopleMutation);
 
-const axios = require('axios');
+//people-detail-model middleware
+const {
+    PeopleDetailQuery,
+    PeopleDetailMutation
+} = require('./people-detail-model-graphql');
+GraphQLInit.AppendQueriesAndMutations(PeopleDetailQuery, PeopleDetailMutation);
 
-const DetailType = new GraphQLObjectType({
-    name: 'PeopleDetailDetail',
-    fields: {
-        create_at: {type: GraphQLString},
-        body: {type: GraphQLString},
-        _id: {type: GraphQLString}
-    }
-})
-
-const rootQuery = new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-        people: {
-            type: new GraphQLList(PeopleType),
-            resolve(parentValue, args){
-                return People.find({}).exec();
-            }
-        },
-        people_find_by_id: {
-            type: PeopleType,
-            args: {
-                _id: {type: new GraphQLNonNull(GraphQLString)}
-            },
-            resolve(parentValue, args){
-                return People.findOne({_id: args._id}).exec();
-            }
-        },
-        people_detail_all: {
-            type: new GraphQLList(PeopleDetailType),
-            resolve(parentValue, args){
-                return PeopleDetail.find({}).exec();
-            }
-        },
-        people_detail: {
-            type: PeopleDetailType,
-            args: {
-                peopleId: {type: new GraphQLNonNull(GraphQLString)}
-            },
-            resolve(parentValue, args){
-                return PeopleDetail .findOne({peopleId: args.peopleId})
-                                    .exec();
-            }
-        },
-        specific_detail: {
-            type: PeopleDetailType,
-            args: {
-                peopleId: {type: new GraphQLNonNull(GraphQLString)},
-                detailId: {type: new GraphQLNonNull(GraphQLString)}
-            },
-            resolve(parentValue, args) {
-                return PeopleDetail.findOne(
-                                        { peopleId: args.peopleId }, 
-                                        { details: { $elemMatch: { _id: args.detailId }} }
-                                    )
-                                    .exec();
-            }
-        }
-    }
-});
-
-const mutation = new GraphQLObjectType({
-    name: 'Mutation',
-    fields:{
-        people_add:{
-            type: PeopleType,
-            args:{
-                firstName: {type: new GraphQLNonNull(GraphQLString)},
-                lastName: {type: new GraphQLNonNull(GraphQLString)},
-                DOB: {type: new GraphQLNonNull(PeopleCompose.get('DOB').getInputType())}
-            },
-            resolve(parentValue, args){
-                let newPeople = new People({
-                    firstName: args.firstName,
-                    lastName: args.lastName,
-                    DOB: args.DOB
-                });
-                return newPeople.save();
-            }
-        },
-        people_add_object:{
-            type: PeopleType,
-            args:{
-                newPeople: {type: new GraphQLNonNull(PeopleCompose.getInputType())}
-            },
-            resolve(parentValue, args){
-                let newPeople = new People(args.newPeople);
-                return newPeople.save();
-            }
-        },
-        people_remove:{
-            type: PeopleType,
-            args:{
-                _id: {type: new GraphQLNonNull(GraphQLString)}
-            },
-            resolve(parentValue, args){
-                return People   .find({_id: args._id})
-                                .remove()
-                                .exec();
-            }
-        },
-        detail_add: {
-            type: PeopleDetailType,
-            args: {
-                peopleId: {type: new GraphQLNonNull(GraphQLString)},
-                detailBody: {type: new GraphQLNonNull(GraphQLString)}
-            },
-            resolve(parentValue, args){
-                return PeopleDetail.AddDetailToPeople(args.peopleId, args.detailBody);
-            }
-        },
-        detail_remove: {
-            type: PeopleDetailType,
-            args: {
-                peopleId: {type: new GraphQLNonNull(GraphQLString)},
-                detailId: {type: new GraphQLNonNull(GraphQLString)}
-            },
-            resolve(parentValue, args){
-                return PeopleDetail.RemoveDetailFromList(args.peopleId, args.detailId);
-            }
-        },
-        people_detail_remove: {
-            type: PeopleDetailType,
-            args: {
-                peopleId: {type: new GraphQLNonNull(GraphQLString)}
-            },
-            resolve(parentValue, args){
-                return PeopleDetail .find({peopleId: args.peopleId})
-                                    .remove()
-                                    .exec();
-            }
-        }
-    }
-});
-
+const rootQuery = new GraphQLObjectType(GraphQLInit.rootQueryJson);
+const mutation = new GraphQLObjectType(GraphQLInit.mutationJson);
 module.exports = new GraphQLSchema({
    query: rootQuery,
    mutation: mutation
