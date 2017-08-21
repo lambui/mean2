@@ -25,7 +25,6 @@ export class PeopleDetailViewComponent implements OnInit {
 
   PeopleSuperService_GetInfoFromPeopleIdAndDetailId(res)
   {
-    console.log(res);
     this.people = res[0];
     if(res[1].details.length <= 0)
       this.router.navigate(['./404']);

@@ -32,33 +32,85 @@ export class PeopleDetailService {
                     .map((res: any) => res.data[queryField]);
   }
 
+  /*
   CreateDetailList(peopleId: string)
   {
     let url = backend + '/create';
     let jsonObj = {peopleId: peopleId};
     return this.http.post(url, jsonObj);
   }
+  */
 
   RemoveDetailList(peopleId: string)
   {
-    let url = backend + '/destroy?peopleId=' + peopleId;
-    return this.http.delete(url);
+    //let url = backend + '/destroy?peopleId=' + peopleId;
+    let url = graphql;
+    let mutationField = 'people_detail_remove';
+    let mutationString = `
+      mutation{
+        ${mutationField}(peopleId: "${peopleId}")
+        {
+          _id
+        }
+      }
+    `
+    let mutationJson = {
+      query: mutationString
+    }
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
   }
 
   AddDetail(peopleId: string, detailBody)
   {
+    /*
     let url = backend + '/add';
     let jsonObj = {
       peopleId: peopleId,
       detailBody: detailBody
     };
-    return this.http.post(url, jsonObj);
+    */
+
+    let url = graphql;
+    let mutationField = 'detail_add';
+    let mutationString = `
+      mutation{
+        ${mutationField}(peopleId: "${peopleId}", detailBody: "${detailBody}")
+        {
+          _id
+          peopleId
+          details{
+            create_at
+            body
+            _id
+          }
+        }
+      }
+    `
+    let mutationJson = {
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
   }
 
   RemoveDetail(peopleId: string, detailId: string)
   {
-    let url = backend + '/remove';
-    return this.http.put(url, {peopleId: peopleId, detailId: detailId});
+    //let url = backend + '/remove';
+    let url = graphql;
+    let mutationField = 'detail_remove';
+    let mutationString = `
+      mutation{
+        ${mutationField}(peopleId: "${peopleId}", detailId: "${detailId}"){
+          _id
+        }
+      }
+    `
+    let mutationJson = {
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
   }
 
   GetDetail(peopleId: string, detailId: string)

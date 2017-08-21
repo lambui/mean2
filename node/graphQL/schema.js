@@ -47,6 +47,12 @@ const rootQuery = new GraphQLObjectType({
                 return People.findOne({_id: args._id}).exec();
             }
         },
+        people_detail_all: {
+            type: new GraphQLList(PeopleDetailType),
+            resolve(parentValue, args){
+                return PeopleDetail.find({}).exec();
+            }
+        },
         people_detail: {
             type: PeopleDetailType,
             args: {
@@ -112,6 +118,37 @@ const mutation = new GraphQLObjectType({
                 return People   .find({_id: args._id})
                                 .remove()
                                 .exec();
+            }
+        },
+        detail_add: {
+            type: PeopleDetailType,
+            args: {
+                peopleId: {type: new GraphQLNonNull(GraphQLString)},
+                detailBody: {type: new GraphQLNonNull(GraphQLString)}
+            },
+            resolve(parentValue, args){
+                return PeopleDetail.AddDetailToPeople(args.peopleId, args.detailBody);
+            }
+        },
+        detail_remove: {
+            type: PeopleDetailType,
+            args: {
+                peopleId: {type: new GraphQLNonNull(GraphQLString)},
+                detailId: {type: new GraphQLNonNull(GraphQLString)}
+            },
+            resolve(parentValue, args){
+                return PeopleDetail.RemoveDetailFromList(args.peopleId, args.detailId);
+            }
+        },
+        people_detail_remove: {
+            type: PeopleDetailType,
+            args: {
+                peopleId: {type: new GraphQLNonNull(GraphQLString)}
+            },
+            resolve(parentValue, args){
+                return PeopleDetail .find({peopleId: args.peopleId})
+                                    .remove()
+                                    .exec();
             }
         }
     }

@@ -29,10 +29,8 @@ const peopleSchema = mongoose.Schema(
 );
 
 const People = module.exports = mongoose.model('People', peopleSchema, 'People');
-
 module.exports.GetPeopleById = id => People.findOne({_id: id}).exec();
 module.exports.GetPeopleByFirstName = firstName => People.find({firstName: firstName}).exec();
 module.exports.GetPeopleByLastName = lastName => People.find({lastName: lastName}).exec();
 module.exports.GetPeopleByDOB = DOB => People.find({DOB: DOB}).exec();
-
 module.exports.AddPeople = newPerson => newPerson.save();
