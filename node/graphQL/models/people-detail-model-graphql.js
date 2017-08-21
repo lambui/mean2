@@ -11,7 +11,7 @@ const {
 const graphqlComposeMongoose = require('graphql-compose-mongoose');
 
 //PeopleDetail Type from ppl-detail-models
-module.exports.PeopleDetail = PeopleDetail = require('../models/people-detail-model');
+module.exports.PeopleDetail = PeopleDetail = require('../../models/people-detail-model');
 module.exports.PeopleDetailCompose = PeopleDetailCompose = graphqlComposeMongoose.composeWithMongoose(PeopleDetail, {});
 module.exports.PeopleDetailType = PeopleDetailType = PeopleDetailCompose.getType();
 

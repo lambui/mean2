@@ -9,15 +9,22 @@ const GraphQLInit = require('./graphql-init');
 const {
     PeopleQuery,
     PeopleMutation
-} = require('./people-model-graphql');
+} = require('./models/people-model-graphql');
 GraphQLInit.AppendQueriesAndMutations(PeopleQuery, PeopleMutation);
 
 //people-detail-model middleware
 const {
     PeopleDetailQuery,
     PeopleDetailMutation
-} = require('./people-detail-model-graphql');
+} = require('./models/people-detail-model-graphql');
 GraphQLInit.AppendQueriesAndMutations(PeopleDetailQuery, PeopleDetailMutation);
+
+//alert-tag-model middleware
+const {
+    AlertTagQuery,
+    AlertTagMutation
+} = require('./models/alert-tag-model-graphql');
+GraphQLInit.AppendQueriesAndMutations(AlertTagQuery, AlertTagMutation);
 
 const rootQuery = new GraphQLObjectType(GraphQLInit.rootQueryJson);
 const mutation = new GraphQLObjectType(GraphQLInit.mutationJson);
