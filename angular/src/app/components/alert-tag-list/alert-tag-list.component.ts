@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AlertTypes } from '../../general-classes/AlertTagTypes';
+import { MdDialog } from '@angular/material';
+import { AlertTagPopupComponent } from '../alert-tag-popup/alert-tag-popup.component';
 
 @Component({
   selector: 'app-alert-tag-list',
@@ -9,7 +11,9 @@ import { AlertTypes } from '../../general-classes/AlertTagTypes';
 export class AlertTagListComponent implements OnInit {
   @Input() tagList: { alertType }[];
   @Input() mode: number = 0; //mode 0: normal, 1: type collapse
-  constructor() { }
+  constructor(
+    private dialog: MdDialog
+  ) { }
 
   alertTypes: string[];
   ngOnInit() {
@@ -55,5 +59,28 @@ export class AlertTagListComponent implements OnInit {
       return true;
 
     return false;
+  }
+
+  DetermineDialogWidth()
+  {
+    let winWidth = window.innerWidth;
+    if(winWidth > 992)
+      return '50%';
+    if(winWidth > 600)
+      return '70%';
+    else
+      return '80%';
+  }
+
+  ViewSpecificTag(tag: any)
+  {
+    let tags = [tag];
+    let dialogRef = this.dialog.open(AlertTagPopupComponent, {
+      data: tags,
+      width: this.DetermineDialogWidth(),
+      position: {
+        top: '50px'
+      }
+    });
   }
 }

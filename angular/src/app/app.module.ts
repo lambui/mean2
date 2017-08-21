@@ -13,6 +13,7 @@ import { FrontPageComponent } from './components/front-page/front-page.component
 import { PeopleListComponent } from './components/people-list/people-list.component';
 import { AlertTagListComponent } from './components/alert-tag-list/alert-tag-list.component';
 import { AlertTagBannerComponent } from './components/alert-tag-banner/alert-tag-banner.component';
+import { AlertTagPopupComponent } from './components/alert-tag-popup/alert-tag-popup.component';
 import { PeopleAddComponent } from './components/people-add/people-add.component';
 import { PeopleDetailComponent } from './components/people-detail/people-detail.component';
 import { PeopleDetailViewComponent } from './components/people-detail-view/people-detail-view.component';
@@ -29,6 +30,9 @@ import { PeopleSuperService } from './services/people-super/people-super.service
 import { AlertTagService } from './services/alert-tag/alert-tag.service';
 
 @NgModule({
+  entryComponents: [
+    AlertTagPopupComponent
+  ],
   declarations: [
     AppComponent,
     FrontPageComponent,
@@ -39,7 +43,8 @@ import { AlertTagService } from './services/alert-tag/alert-tag.service';
     PeopleDetailViewComponent,
     NotFoundComponent,
     AlertTagBannerComponent,
-    AlertTagListComponent
+    AlertTagListComponent,
+    AlertTagPopupComponent
   ],
   imports: [
     BrowserModule,

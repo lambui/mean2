@@ -1,0 +1,12 @@
+<span *ngIf='tags'>
+  <span *ngFor='let tag of tags'>
+    <div class="card-panel">
+        <div class="card-title">
+          {{tag.alertType}}
+        </div>
+        <div class="card-content">
+          <span>{{tag.msg}}</span>
+        </div>
+    </div>
+  </span>
+</span>
