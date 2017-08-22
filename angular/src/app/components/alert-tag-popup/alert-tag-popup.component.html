@@ -1,12 +1,31 @@
-<span *ngIf='tags'>
-  <span *ngFor='let tag of tags'>
-    <div class="card-panel">
-        <div class="card-title">
-          {{tag.alertType}}
-        </div>
-        <div class="card-content">
-          <span>{{tag.msg}}</span>
-        </div>
-    </div>
+ <span *ngIf='tags'>
+  <span *ngFor='let tag of tags; let i = index'>
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content {{tagObjects[i].Color}}">
+            <span class="card-title valign-wrapper {{tagObjects[i].TextStyle}}">
+                <i class="material-icons left">{{tagObjects[i].Icon}}</i>
+                <span>{{CapitalizeFirstLetter(tag.alertType)}}</span>
+            </span>
+            <p *ngIf='tagRelated[i].people' class='{{tagObjects[i].TextStyle}} cursor-pointer left valign-wrapper' (click)='GoToPeoplePage(tags[i].peopleId)'>
+              <i class="material-icons left">face</i>
+              {{DisplayPeopleInfo(tagRelated[i].people)}}
+            </p>
+            <p class='{{tagObjects[i].TextStyle}} cursor-pointer right valign-wrapper' (click)='GoToDetailPage(tags[i].peopleId, tags[i].detailId)'>
+              <i class="material-icons left">format_list_bulleted</i>
+              Detail
+            </p>
+            <div class="clearfix"></div>
+            <p *ngIf='tag.msg' class='flow-text'>{{tag.msg}}</p>
+          </div>
+          <div class="card-action grey lighten-2">
+            <button class="btn-flat right">Resolve</button>
+            <button class="btn-flat right">Add Message</button>
+            <div class='clearfix'></div>
+          </div>
+        </div> <!-- card -->
+      </div> <!-- col -->
+    </div> <!-- row -->
   </span>
 </span>

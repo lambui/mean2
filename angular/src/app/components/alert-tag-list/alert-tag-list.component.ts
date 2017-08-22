@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AlertTypes } from '../../general-classes/AlertTagTypes';
+import { AlertTypeFunctions, AlertTypeObject } from '../../general-classes/AlertTagTypes';
 import { MdDialog } from '@angular/material';
 import { AlertTagPopupComponent } from '../alert-tag-popup/alert-tag-popup.component';
 
@@ -17,9 +17,25 @@ export class AlertTagListComponent implements OnInit {
 
   alertTypes: string[];
   ngOnInit() {
-    this.alertTypes = AlertTypes;
+    this.alertTypes = AlertTypeObject.Type;
     if(this.mode == 1)
       this.TypeCollapse();
+  }
+
+  GetAlertTypeIcon(type)
+  {
+    return AlertTypeFunctions.GetAlertTypeIcon(type);
+  }
+
+  GetAlertTypeColor(type)
+  {
+    return AlertTypeFunctions.GetAlertTypeColor(type);
+  }
+
+  GetAlertTypeChipStyles(type)
+  {
+    let index = AlertTypeFunctions.GetAlertTypeIndex(type);
+    return AlertTypeObject.ChipStyle[index];
   }
 
   TypeCollapse()
@@ -65,16 +81,35 @@ export class AlertTagListComponent implements OnInit {
   {
     let winWidth = window.innerWidth;
     if(winWidth > 992)
-      return '50%';
+      return '40%';
     if(winWidth > 600)
       return '70%';
     else
       return '80%';
   }
 
-  ViewSpecificTag(tag: any)
+  ViewTags(tag: any, index: number)
   {
-    let tags = [tag];
+    //fetch tags to display
+    let tags = [];
+    if(tag.count)
+    {
+      let i = index;
+      let count = 0;
+      while(count < tag.count)
+      {
+        if(i + count >= this.tagList.length)
+          return [];
+        tags.push(this.tagList[i + count]);
+        count++;
+      }
+    }
+    else
+    {
+      tags.push(tag);
+    }
+
+    //create modal
     let dialogRef = this.dialog.open(AlertTagPopupComponent, {
       data: tags,
       width: this.DetermineDialogWidth(),

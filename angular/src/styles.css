@@ -11,6 +11,11 @@
     margin-right: auto;
 }
 
+.text-bold
+{
+    font-weight: bold;
+}
+
 /*
     Materialize custom addon
 */

@@ -2,7 +2,7 @@ import { AppMaterializeService } from '../../services/app-materialize/app-materi
 import { AlertTagService } from '../../services/alert-tag/alert-tag.service';
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { AlertTagBannerFormService } from './alert-tag-banner.form.service';
-import { AlertTypes } from '../../general-classes/AlertTagTypes';
+import { AlertTypeObject } from '../../general-classes/AlertTagTypes';
 
 @Component({
   selector: 'app-alert-tag-banner',
@@ -26,7 +26,7 @@ export class AlertTagBannerComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.appMaterializeService.InitFormSelect();
     this.compFormService.InitForm();
-    this.alertTypes = AlertTypes;
+    this.alertTypes = AlertTypeObject.Type;
   }
 
   ngDoCheck()

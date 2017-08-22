@@ -1,31 +1,10 @@
-<!-- mode 1: type collapse -->
 <span *ngIf='tagList'>
-  <span *ngFor='let tag of tagList' [ngSwitch]='tag.alertType'>
-    <span *ngIf='CheckTag(tag)' (click)='ViewSpecificTag(tag)'>
-      <div *ngSwitchDefault class="chip gray black-text cursor-pointer"> <!-- default: note -->
-        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
+  <span *ngFor='let tag of tagList; let i = index' [ngSwitch]='tag.alertType'>
+    <span *ngIf='CheckTag(tag)'>
+      <div class="chip {{GetAlertTypeChipStyles(tag.alertType)}}" (click)='ViewTags(tag, i)'> 
+        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1: type collapse -->
         <span>{{tag.alertType}}</span>
-        <i class='material-icons chip-icon'>cloud</i>
-      </div>
-      <div *ngSwitchCase='alertTypes[0]' class="chip orange white-text cursor-pointer"> <!--attention-->
-        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
-        <span>{{tag.alertType}}</span>
-        <i class="material-icons chip-icon">error</i>
-      </div>
-      <div *ngSwitchCase='alertTypes[1]' class="chip green white-text cursor-pointer"> <!--reminder-->
-        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
-        <span>{{tag.alertType}}</span>
-        <i class="material-icons chip-icon">alarm</i>
-      </div>
-      <div *ngSwitchCase='alertTypes[2]' class="chip red white-text cursor-pointer pulse"> <!--urgent-->
-        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
-        <span>{{tag.alertType}}</span>
-        <i class="material-icons chip-icon">warning</i>
-      </div>
-      <div *ngSwitchCase='alertTypes[3]' class="chip red white-text cursor-pointer"> <!--alert-->
-        <span *ngIf='tag.count > 1'>{{tag.count}}x</span> <!-- mode 1 only -->
-        <span>{{tag.alertType}}</span>
-        <i class="material-icons chip-icon">warning</i>
+        <i class='material-icons chip-icon'>{{GetAlertTypeIcon(tag.alertType)}}</i>
       </div>
     </span>
   </span>

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdDatepickerModule, MdInputModule, MdNativeDateModule, MdSelectModule } from '@angular/material';
+import { MdDialogModule, MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdDatepickerModule, MdInputModule, MdNativeDateModule, MdSelectModule } from '@angular/material';
 
 @NgModule({
   imports: [ 
     MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, 
     MdIconModule, MdDatepickerModule, MdInputModule, MdNativeDateModule,
-    MdSelectModule
+    MdSelectModule, MdDialogModule
   ],
   exports: [ 
     MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, 
     MdIconModule, MdDatepickerModule, MdInputModule, MdNativeDateModule,
-    MdSelectModule
+    MdSelectModule, MdDialogModule
   ]
 })
 export class AngularMaterialModule { }

@@ -70,5 +70,16 @@ module.exports.AlertTagMutation = AlertTagMutation = {
         resolve(parentValue, args){
             return AlertTag.AddAlertTagToDetail(args.peopleId, args.detailId, args.alertType, args.msg);
         }
+    },
+    alert_tag_remove_by_id: {
+        type: AlertTagType,
+        args: {
+            _id: {type: new GraphQLNonNull(GraphQLString)}
+        },
+        resolve(parentValue, args){
+            return AlertTag .findOne({_id: args._id})
+                            .remove()
+                            .exec();
+        }
     }
 };
