@@ -17,6 +17,14 @@
 }
 
 /*
+    Modal style
+*/
+.alert-tag-popup .mat-dialog-container     
+{
+    max-height: calc(100vh - 100px); /* margin top: 50px */
+}
+
+/*
     Materialize custom addon
 */
 .chip .chip-icon {
@@ -28,4 +36,9 @@
 
 .width-80percent{
     width: 80%;
+}
+
+.card-flat{
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }

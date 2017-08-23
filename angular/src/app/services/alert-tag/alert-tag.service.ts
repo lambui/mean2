@@ -87,4 +87,22 @@ export class AlertTagService {
     return this.http.post(url, mutationJson)
                     .map((res: any) => res.data[mutationField]);
   }
+
+  RemoveAlertTags(_id: string)
+  {
+    let url = graphql;
+    let mutationField = 'alert_tag_remove_by_id';
+    let mutationString = `
+    mutation{
+      ${mutationField}(_id:"${_id}")
+      {
+        _id
+      }
+    }`;
+    let mutationJson = {
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
+  }
 }

@@ -10,10 +10,10 @@
 </div>
 
 <!-- form to add tag -->
-<div *ngIf='showForm'>
+<div *ngIf='showForm' class='card-panel container'>
   <form [formGroup]='compFormService.form' (submit)='AddAlertTag()' novalidate>
     <div class="row">
-      <div class="col s3 input-field">
+      <div class="col s5 m3 input-field">
         <md-select [style.width]="'100%'" placeholder="Alert type" formControlName='alertType'>
           <md-option *ngFor='let type of alertTypes' [value]='type'>
             {{type}}
@@ -23,7 +23,7 @@
     </div>
     
     <div class="row">  
-      <div class="col s3 input-field">
+      <div class="col s5 m3 input-field">
         <label for="msg">Alert message</label>
         <textarea class='materialize-textarea' id="msg" formControlName='msg'></textarea>
       </div>

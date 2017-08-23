@@ -1,4 +1,4 @@
- <span *ngIf='tags'>
+<span *ngIf='tags'>
   <span *ngFor='let tag of tags; let i = index'>
     <div class="row">
       <div class="col s12">
@@ -8,19 +8,29 @@
                 <i class="material-icons left">{{tagObjects[i].Icon}}</i>
                 <span>{{CapitalizeFirstLetter(tag.alertType)}}</span>
             </span>
-            <p *ngIf='tagRelated[i].people' class='{{tagObjects[i].TextStyle}} cursor-pointer left valign-wrapper' (click)='GoToPeoplePage(tags[i].peopleId)'>
-              <i class="material-icons left">face</i>
-              {{DisplayPeopleInfo(tagRelated[i].people)}}
-            </p>
-            <p class='{{tagObjects[i].TextStyle}} cursor-pointer right valign-wrapper' (click)='GoToDetailPage(tags[i].peopleId, tags[i].detailId)'>
-              <i class="material-icons left">format_list_bulleted</i>
-              Detail
-            </p>
-            <div class="clearfix"></div>
-            <p *ngIf='tag.msg' class='flow-text'>{{tag.msg}}</p>
+            <span> <!--card-sub-title-->
+              <p *ngIf='tagRelated[i].people' class='{{tagObjects[i].TextStyle}} cursor-pointer left valign-wrapper' (click)='GoToPeoplePage(tags[i].peopleId)'>
+                <i class="material-icons left">face</i>
+                {{DisplayPeopleInfo(tagRelated[i].people)}}
+              </p>
+              <p class='{{tagObjects[i].TextStyle}} cursor-pointer right valign-wrapper' (click)='GoToDetailPage(tags[i].peopleId, tags[i].detailId)'>
+                <i class="material-icons left">format_list_bulleted</i>
+                Detail
+              </p>
+              <div class="clearfix"></div>
+            </span>
+            <span *ngIf='tag.msg'> <!--message-->
+              <br>
+              <p class='{{tagObjects[i].TextStyle}} valign-wrapper'>
+                Message:
+              </p >
+              <div class='white card-panel card-flat'> 
+                <p class='flow-text'>{{tag.msg}}</p>
+              </div>
+            </span>
           </div>
           <div class="card-action grey lighten-2">
-            <button class="btn-flat right">Resolve</button>
+            <button class="btn-flat right" (click)='ResolveTag(tag._id, i)'>Resolve</button>
             <button class="btn-flat right">Add Message</button>
             <div class='clearfix'></div>
           </div>

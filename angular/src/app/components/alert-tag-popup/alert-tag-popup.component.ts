@@ -1,3 +1,4 @@
+import { AlertTagService } from '../../services/alert-tag/alert-tag.service';
 import { PeopleDetailService } from '../../services/people-detail/people-detail.service';
 import { PeopleService } from '../../services/people/people.service';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -18,14 +19,15 @@ export class AlertTagPopupComponent implements OnInit {
     private dialogRef: MdDialogRef<AlertTagPopupComponent>,
     @Inject(MD_DIALOG_DATA) private data: any,
     private peopleService: PeopleService,
-    private router: Router
+    private router: Router,
+    private alertTagService: AlertTagService
   ) { }
 
   tags: [any];
   tagObjects = [];
   tagRelated = [];
   ngOnInit() {
-    this.tags = this.data;
+    this.tags = this.data.tags;
     for(let i = 0; i < this.tags.length; i++)
     {
       this.tagObjects.push(this.GetAlertTypeObject(this.tags[i].alertType));
@@ -66,5 +68,28 @@ export class AlertTagPopupComponent implements OnInit {
   {
     this.router.navigate(['./people/' + peopleId + '/detail/' + detailId]);
     this.dialogRef.close();
+  }
+
+  RemoveTagAt(index: number)
+  {
+    if(index < 0 || index >= this.tags.length)
+      return;
+    this.tags.splice(index, 1);
+    this.tagObjects.splice(index, 1);
+    this.tagRelated.splice(index, 1);
+  }
+
+  ResolveTag(tagId: string, index: number)
+  {
+    this.alertTagService.RemoveAlertTags(tagId)
+                        .subscribe(res => {
+                          this.RemoveTagAt(index);
+
+                          this.data.parent.tagList.splice(this.data.index + index, 1);
+                          this.data.parent.Refresh();
+
+                          if(this.tags.length <= 0)
+                            this.dialogRef.close();
+                        });
   }
 }

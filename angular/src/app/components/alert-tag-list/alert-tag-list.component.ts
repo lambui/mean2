@@ -22,6 +22,17 @@ export class AlertTagListComponent implements OnInit {
       this.TypeCollapse();
   }
 
+  //use this when manually alter tagList
+  Refresh()
+  {
+    for(let i = 0; i < this.tagList.length; i++)
+    {
+      (<any>this.tagList[i]).count = null;
+    }
+    if(this.mode == 1)
+      this.TypeCollapse();
+  }
+
   GetAlertTypeIcon(type)
   {
     return AlertTypeFunctions.GetAlertTypeIcon(type);
@@ -110,8 +121,14 @@ export class AlertTagListComponent implements OnInit {
     }
 
     //create modal
+    let data = {
+      parent: this,
+      tags: tags,
+      index: index
+    };
     let dialogRef = this.dialog.open(AlertTagPopupComponent, {
-      data: tags,
+      panelClass: 'alert-tag-popup',
+      data: data,
       width: this.DetermineDialogWidth(),
       position: {
         top: '50px'
