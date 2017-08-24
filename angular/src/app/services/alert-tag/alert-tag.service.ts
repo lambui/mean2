@@ -29,7 +29,7 @@ export class AlertTagService {
         detailId
         alertType
         msg
-        date_create_at
+        created_date
       }
     }
     `
@@ -53,7 +53,7 @@ export class AlertTagService {
         detailId
         msg
         alertType
-        date_create_at
+        created_date
       }
     }`
     url += queryString;
@@ -78,7 +78,7 @@ export class AlertTagService {
         _id,
         alertType,
         msg,
-        date_create_at
+        created_date
       }
     }`;
     let mutationJson = {
@@ -100,6 +100,60 @@ export class AlertTagService {
       }
     }`;
     let mutationJson = {
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
+  }
+
+  AppendMessage(_id: string, msg: string)
+  {
+    let url = graphql;
+    let mutationField = 'alert_tag_append_message';
+    let mutationString = `
+    mutation{
+      ${mutationField}(_id:"${_id}", msg:"${msg}")
+      {
+        msg
+      }
+    }`;
+    let mutationJson ={
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
+  }
+
+  RemoveMessage(_id: string, msgIndex: number)
+  {
+    let url = graphql;
+    let mutationField = 'alert_tag_remove_message';
+    let mutationString = `
+    mutation{
+      ${mutationField}(_id:"${_id}", index:${msgIndex})
+      {
+        msg
+      }
+    }`;
+    let mutationJson ={
+      query: mutationString
+    };
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
+  }
+
+  EditMessage(_id: string, msgIndex: number, msg: string)
+  {
+    let url = graphql;
+    let mutationField = 'alert_tag_edit_message';
+    let mutationString = `
+    mutation{
+      ${mutationField}(_id:"${_id}", index:${msgIndex}, msg: "${msg}")
+      {
+        msg
+      }
+    }`;
+    let mutationJson ={
       query: mutationString
     };
     return this.http.post(url, mutationJson)

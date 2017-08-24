@@ -15,8 +15,8 @@ const alertTagSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        date_create_at: String,
-        msg: String,
+        created_date: String,
+        msg: [String],
     }
 );
 
@@ -30,14 +30,14 @@ module.exports.GetAllAlertsTagOfType = type => alertTag.find({alertType: type}).
 module.exports.AddAlertTagToDetail = (peopleId, detailId, alertType, msg) => {
     let date = new Date();
     let dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
-    let newTag = new alertTag({
+    let newTagJson = {
         peopleId: peopleId,
         detailId: detailId,
         alertType: alertType,
-        msg: msg? msg : null,
+        msg: (msg != "" || msg)? [msg] : [],
         date_create_at: dateString
-    });
-
+    };
+    let newTag = new alertTag(newTagJson);
     return newTag.save();
 };
 

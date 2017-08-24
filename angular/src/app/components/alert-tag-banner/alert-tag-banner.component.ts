@@ -70,7 +70,7 @@ export class AlertTagBannerComponent implements OnInit, DoCheck {
     let alertJson = 
     {
       alertType: this.compFormService.GetValueOfField('alertType'),
-      msg: msg == ""? null : msg
+      msg: msg
     }
     this.alertTagService.AddAlertTagsToDetail(this.people._id, this.detail._id, alertJson)
                         .subscribe(newAlert => this.FetchAlertTags());

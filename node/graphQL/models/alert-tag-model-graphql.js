@@ -81,5 +81,51 @@ module.exports.AlertTagMutation = AlertTagMutation = {
                             .remove()
                             .exec();
         }
+    },
+    alert_tag_append_message: {
+        type: AlertTagType,
+        args: {
+            _id: {type: new GraphQLNonNull(GraphQLString)},
+            msg: {type: new GraphQLNonNull(GraphQLString)}
+        },
+        resolve(parentValue, args){
+            return AlertTag .findOne({_id: args._id})
+                            .exec()
+                            .then(res => {
+                                res.msg.push(args.msg);
+                                return res.save();                               
+                            });
+        }
+    },
+    alert_tag_remove_message: {
+        type: AlertTagType,
+        args: {
+            _id: {type: new GraphQLNonNull(GraphQLString)},
+            index: {type: new GraphQLNonNull(GraphQLInt)} 
+        },
+        resolve(parentValue, args){
+            return AlertTag .findOne({_id: args._id})
+                            .exec()
+                            .then(res => {
+                                res.msg.splice(args.index, 1);
+                                return res.save();
+                            });
+        }
+    },
+    alert_tag_edit_message: {
+        type: AlertTagType,
+        args: {
+            _id: {type: new GraphQLNonNull(GraphQLString)},
+            index: {type: new GraphQLNonNull(GraphQLInt)},
+            msg: {type: new GraphQLNonNull(GraphQLString)}
+        },
+        resolve(parentValue, args){
+            return AlertTag .findOne({_id: args._id})
+                            .exec()
+                            .then(res => {
+                                res.msg.splice(args.index, 1, args.msg);
+                                return res.save();
+                            });
+        }
     }
 };

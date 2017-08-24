@@ -33,6 +33,7 @@ export class AlertTagPopupComponent implements OnInit {
       this.tagObjects.push(this.GetAlertTypeObject(this.tags[i].alertType));
       this.tagRelated.push({});
       this.GetPeopleInfo(this.tags[i].peopleId, i);
+      this.InitNewMsg(i);
     }
   }
 
@@ -50,6 +51,12 @@ export class AlertTagPopupComponent implements OnInit {
   {
     this.peopleService.GetPeople(peopleId)
                       .subscribe(res => this.tagRelated[index].people = res);
+  }
+
+  InitNewMsg(index: number)
+  {
+    this.tagRelated[index].newMsg = "";
+    this.tagRelated[index].editMsg = "";
   }
 
   DisplayPeopleInfo(people: any)
@@ -94,6 +101,52 @@ export class AlertTagPopupComponent implements OnInit {
                           this.data.parent.RemoveTagId(tagId);
                           if(this.tags.length <= 0)
                             this.dialogRef.close();
+                        });
+  }
+
+  toggleForm: boolean = false;
+  ToggleForm()
+  {
+    this.toggleForm = !this.toggleForm;
+  }
+
+  AppendMessage(tag: any, tagIndex: number)
+  {
+    this.alertTagService.AppendMessage(tag._id, this.tagRelated[tagIndex].newMsg)
+                        .subscribe(res => {
+                          tag.msg = res.msg;
+                          this.tagRelated[tagIndex].newMsg = "";
+                          this.toggleForm = false;
+                        });
+  }
+
+  RemoveMessage(tag: any, msgIndex: number)
+  {
+    this.alertTagService.RemoveMessage(tag._id, msgIndex)
+                        .subscribe(res => {
+                          tag.msg = res.msg;
+                        });
+  }
+
+  toggleEdit: number = -1;
+  ToggleEdit(messageIndex: number, tagIndex: number, message: string)
+  {
+    if(this.toggleEdit == messageIndex)
+      this.toggleEdit = -1
+    else
+    {
+      this.toggleEdit = messageIndex;
+      this.tagRelated[tagIndex].editMsg = message;
+    }
+  }
+
+  EditMessage(tag: any, msgIndex: number, tagIndex: number)
+  {
+    this.alertTagService.EditMessage(tag._id, msgIndex, this.tagRelated[tagIndex].editMsg)
+                        .subscribe(res => {
+                          tag.msg = res.msg;
+                          this.tagRelated[tagIndex].editMsg = "";
+                          this.toggleEdit = -1;
                         });
   }
 }

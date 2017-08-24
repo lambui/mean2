@@ -20,18 +20,39 @@
               <div class="clearfix"></div>
             </span>
             <span *ngIf='tag.msg'> <!--message-->
-              <br>
-              <p class='{{tagObjects[i].TextStyle}} valign-wrapper'>
-                Message:
-              </p >
-              <div class='white card-panel card-flat'> 
-                <p class='flow-text'>{{tag.msg}}</p>
-              </div>
+              <span *ngFor='let m of tag.msg; let j = index'>
+                <br>
+                <span class='{{tagObjects[i].TextStyle}} valign-wrapper left'>
+                  Message:
+                </span>
+                <i title='remove message!' class="material-icons right {{tagObjects[i].TextStyle}} cursor-pointer" (click)='RemoveMessage(tag, j)'>close</i>
+                <i title='edit message!' class="material-icons right {{tagObjects[i].TextStyle}} cursor-pointer" (click)='ToggleEdit(j, i, m)'>edit</i>
+                <div class="clearfix"></div>
+                <div *ngIf='toggleEdit != j' class='white card-panel card-flat'> 
+                  <p class='flow-text'>{{m}}</p>
+                </div>
+                <div *ngIf='toggleEdit == j' class="white card-panel card-flat"> <!-- edit message form -->
+                  <textarea class='materialize-textarea' [(ngModel)]='tagRelated[i].editMsg'></textarea>
+                  <button class="btn right" [disabled]='tagRelated[i].editMsg == ""' (click)='EditMessage(tag, j, i)'>Edit!</button>
+                  <div class="clearfix"></div>
+                </div>
+              </span>
+            </span>
+            <span *ngIf='toggleForm'> <!--message form-->
+                <br>
+                <p class='{{tagObjects[i].TextStyle}} valign-wrapper'>
+                  New message:
+                </p>
+                <div class="white card-panel card-flat flow-text">
+                  <textarea class='materialize-textarea' id="newMsg" [(ngModel)]='tagRelated[i].newMsg'></textarea>
+                  <button class="btn right" [disabled]='tagRelated[i].newMsg == ""' (click)='AppendMessage(tag, i)'>Add!</button>
+                  <div class="clearfix"></div>
+                </div>
             </span>
           </div>
           <div class="card-action grey lighten-2">
             <button class="btn-flat right" (click)='ResolveTag(tag._id, i)'>Resolve</button>
-            <button class="btn-flat right">Add Message</button>
+            <button class="btn-flat right" (click)='ToggleForm()'>Add Message</button>
             <div class='clearfix'></div>
           </div>
         </div> <!-- card -->
