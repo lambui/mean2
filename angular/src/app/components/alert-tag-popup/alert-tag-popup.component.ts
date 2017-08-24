@@ -20,7 +20,7 @@ export class AlertTagPopupComponent implements OnInit {
     @Inject(MD_DIALOG_DATA) private data: any,
     private peopleService: PeopleService,
     private router: Router,
-    private alertTagService: AlertTagService
+    private alertTagService: AlertTagService,
   ) { }
 
   tags: [any];
@@ -70,6 +70,13 @@ export class AlertTagPopupComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  GoToAlertTagHome(tag: any)
+  {
+    let path = './people/' + tag.peopleId + '/detail/' + tag.detailId;
+    this.router.navigate([path], {queryParams: {alertTagIds: tag._id + ';'}});
+    this.dialogRef.close();
+  }
+
   RemoveTagAt(index: number)
   {
     if(index < 0 || index >= this.tags.length)
@@ -84,10 +91,7 @@ export class AlertTagPopupComponent implements OnInit {
     this.alertTagService.RemoveAlertTags(tagId)
                         .subscribe(res => {
                           this.RemoveTagAt(index);
-
-                          this.data.parent.tagList.splice(this.data.index + index, 1);
-                          this.data.parent.Refresh();
-
+                          this.data.parent.RemoveTagId(tagId);
                           if(this.tags.length <= 0)
                             this.dialogRef.close();
                         });

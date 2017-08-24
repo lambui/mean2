@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AlertTypeFunctions, AlertTypeObject } from '../../general-classes/AlertTagTypes';
 import { MdDialog } from '@angular/material';
 import { AlertTagPopupComponent } from '../alert-tag-popup/alert-tag-popup.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-alert-tag-list',
@@ -9,10 +10,11 @@ import { AlertTagPopupComponent } from '../alert-tag-popup/alert-tag-popup.compo
   styleUrls: ['./alert-tag-list.component.css']
 })
 export class AlertTagListComponent implements OnInit {
-  @Input() tagList: { alertType }[];
+  @Input() tagList: any[];
   @Input() mode: number = 0; //mode 0: normal, 1: type collapse
   constructor(
-    private dialog: MdDialog
+    private dialog: MdDialog,
+    private route: ActivatedRoute
   ) { }
 
   alertTypes: string[];
@@ -20,6 +22,15 @@ export class AlertTagListComponent implements OnInit {
     this.alertTypes = AlertTypeObject.Type;
     if(this.mode == 1)
       this.TypeCollapse();
+
+    this.route.queryParams.subscribe(params => {
+      if(params['alertTagIds']) //in case of having alertTagIds params
+      {
+        let ids = params['alertTagIds'].split(';');
+        let list = this.FetchTags(ids);
+        this.ViewTagsComposite(list);
+      }
+    });
   }
 
   //use this when manually alter tagList
@@ -31,6 +42,24 @@ export class AlertTagListComponent implements OnInit {
     }
     if(this.mode == 1)
       this.TypeCollapse();
+  }
+
+  FetchTags(ids: string[])
+  {
+    let tempList = this.tagList.slice();
+    let finalList = [];
+    for(let i = 0; i < ids.length; i++)
+    {
+      for(let j = 0; j < tempList.length; j++)
+      {
+        if(ids[i] === tempList[j]._id)
+        {
+          finalList.push(tempList[j]);
+          tempList.splice(j, 1);
+        }
+      }
+    }
+    return finalList;
   }
 
   GetAlertTypeIcon(type)
@@ -47,6 +76,19 @@ export class AlertTagListComponent implements OnInit {
   {
     let index = AlertTypeFunctions.GetAlertTypeIndex(type);
     return AlertTypeObject.ChipStyle[index];
+  }
+
+  RemoveTagId(tagId: string)
+  {
+    for(let i = 0; i < this.tagList.length; i++)
+    {
+      if(this.tagList[i]._id === tagId)
+      {
+        this.tagList.splice(i, 1);
+        this.Refresh();
+        return;
+      }
+    }
   }
 
   TypeCollapse()
@@ -120,11 +162,32 @@ export class AlertTagListComponent implements OnInit {
       tags.push(tag);
     }
 
+    if(tags.length <= 0 || tags == null)
+      return;
+
     //create modal
     let data = {
       parent: this,
-      tags: tags,
-      index: index
+      tags: tags
+    };
+    let dialogRef = this.dialog.open(AlertTagPopupComponent, {
+      panelClass: 'alert-tag-popup',
+      data: data,
+      width: this.DetermineDialogWidth(),
+      position: {
+        top: '50px'
+      }
+    });
+  }
+
+  ViewTagsComposite(tags: any)
+  {
+    if(tags.length <= 0 || tags == null)
+      return;
+    //create modalss
+    let data = {
+      parent: this,
+      tags: tags
     };
     let dialogRef = this.dialog.open(AlertTagPopupComponent, {
       panelClass: 'alert-tag-popup',
