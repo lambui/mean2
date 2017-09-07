@@ -1,0 +1,16 @@
+<div>
+  <span *ngIf='groups'>
+    <div>Existed groups:</div>
+    <div class="row">
+      <div *ngFor='let group of groups' class='col s4 m3 box-border'>{{group.name}}</div>
+    </div>
+  </span>
+  <div>Create groups:</div>
+  <form [formGroup]='compFormService.form' (submit)='SubmitForm()'>
+    <input type="text" placeholder="Unique group name" formControlName='name'>
+    <div class="input-field">
+      <textarea class='materialize-textarea' formControlName='desc' cols="30" rows="10" placeholder="Description - purpose, usage, ..."></textarea>
+    </div>
+    <button type='submit' class='btn' [disabled]='compFormService.form.valid == false'>Create</button>
+  </form>
+</div>

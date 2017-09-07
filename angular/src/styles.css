@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+.row .box-border
+{
+    margin: .5rem 0px 1rem 0px;    
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 10px;
+}
+
 .cursor-pointer{
     cursor: pointer;
 }

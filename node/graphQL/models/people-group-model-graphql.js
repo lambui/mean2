@@ -13,7 +13,8 @@ const {
 const graphqlComposeMongoose = require('graphql-compose-mongoose');
 
 const peopleGroupSchema = mongoose.Schema({
-    name: {type: String, required: true},
+    name: {type: String, required: true, unique: true, uppercase: true, trim: true},
+    desc: {type: String},
     list: [{
         peopleId: mongoose.Schema.Types.ObjectId,
         add_date: Date,
@@ -43,12 +44,14 @@ module.exports.PeopleGroupMutation = PeopleGroupMutation = {
     people_group_create: {
         type: PeopleGroupType,
         args: {
-            name: {type: new GraphQLNonNull(GraphQLString)}
+            name: {type: new GraphQLNonNull(GraphQLString)},
+            desc: {type: GraphQLString}
         },
         resolve(parentValue, args)
         {
             let newGroup = new group({
                 name: args.name,
+                desc: args.desc,
                 list: []
             });
             return newGroup.save();

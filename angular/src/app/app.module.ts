@@ -17,6 +17,8 @@ import { AlertTagPopupComponent } from './components/alert-tag-popup/alert-tag-p
 import { PeopleAddComponent } from './components/people-add/people-add.component';
 import { PeopleDetailComponent } from './components/people-detail/people-detail.component';
 import { PeopleDetailViewComponent } from './components/people-detail-view/people-detail-view.component';
+import { ControlComponent } from './components/control/control.component';
+import { ControlCreateGroupComponent } from './components/control-create-group/control-create-group.component';
 
 //module imports
 import { RoutingModule } from './modules/routing/routing.module';
@@ -28,6 +30,7 @@ import { PeopleService } from './services/people/people.service';
 import { PeopleDetailService } from './services/people-detail/people-detail.service';
 import { PeopleSuperService } from './services/people-super/people-super.service';
 import { AlertTagService } from './services/alert-tag/alert-tag.service';
+import { PeopleGroupService } from './services/people-group/people-group.service';
 
 @NgModule({
   entryComponents: [
@@ -44,7 +47,9 @@ import { AlertTagService } from './services/alert-tag/alert-tag.service';
     NotFoundComponent,
     AlertTagBannerComponent,
     AlertTagListComponent,
-    AlertTagPopupComponent
+    AlertTagPopupComponent,
+    ControlComponent,
+    ControlCreateGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,8 @@ import { AlertTagService } from './services/alert-tag/alert-tag.service';
     PeopleService,
     PeopleDetailService,
     PeopleSuperService,
-    AlertTagService
+    AlertTagService,
+    PeopleGroupService
   ],
   bootstrap: [AppComponent]
 })

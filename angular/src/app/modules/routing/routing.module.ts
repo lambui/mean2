@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FrontPageComponent } from '../../components/front-page/front-page.component';
 import { PeopleDetailComponent } from '../../components/people-detail/people-detail.component';
 import { PeopleDetailViewComponent } from '../../components/people-detail-view/people-detail-view.component';
+import { ControlComponent } from '../../components/control/control.component';
 import { NotFoundComponent } from '../../components/not-found/not-found.component';
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'people/add', component: PeopleAddComponent },
   { path: 'people/:peopleId/detail', component: PeopleDetailComponent },
   { path: 'people/:peopleId/detail/:detailId', component: PeopleDetailViewComponent },
+  { path: 'control', component: ControlComponent },
   { path: '404', component: NotFoundComponent},
   { path: '**', redirectTo: '404'}
 ];

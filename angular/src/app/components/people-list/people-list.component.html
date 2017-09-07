@@ -1,6 +1,6 @@
 <div *ngIf='peopleList'>
-  <ul *ngFor='let person of peopleList; let i = index' class='collection'>
-    <div class='collection-item row valign-wrapper'>
+  <ul class='collection'>
+    <div *ngFor='let person of peopleList; let i = index' class='collection-item row valign-wrapper'>
       <div class="col s9 m10 l11 left cursor-pointer" (click)='ViewDetail(person._id)'>
         <i class='material-icons left col'>face</i>
         <span class='left truncate col s10'>{{person.firstName}} {{person.lastName}}</span>
