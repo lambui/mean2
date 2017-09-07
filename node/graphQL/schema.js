@@ -26,6 +26,13 @@ const {
 } = require('./models/alert-tag-model-graphql');
 GraphQLInit.AppendQueriesAndMutations(AlertTagQuery, AlertTagMutation);
 
+//people-group middleware
+const {
+    PeopleGroupQuery,
+    PeopleGroupMutation
+} = require('./models/people-group-model-graphql');
+GraphQLInit.AppendQueriesAndMutations(PeopleGroupQuery, PeopleGroupMutation);
+
 const rootQuery = new GraphQLObjectType(GraphQLInit.rootQueryJson);
 const mutation = new GraphQLObjectType(GraphQLInit.mutationJson);
 module.exports = new GraphQLSchema({
