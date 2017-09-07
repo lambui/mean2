@@ -42,4 +42,11 @@ export class AppMaterializeService {
       $('select').material_select();
     });
   }
+
+  InitCollapsible()
+  {
+    $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });  
+  }
 }

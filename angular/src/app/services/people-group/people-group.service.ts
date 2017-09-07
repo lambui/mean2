@@ -52,4 +52,22 @@ export class PeopleGroupService {
     return this.http.post(url, mutationJson)
                     .map((res: any) => res.data[mutationField]);
   }
+
+  RemoveGroup(name: string)
+  {
+    let mutationField = 'people_group_delete';
+    let mutationString = `
+    mutation{
+      ${mutationField}(name: "${name}"){
+        name
+        desc
+      }
+    }`;
+    let mutationJson = {
+      query: mutationString
+    };
+    let url = graphql;
+    return this.http.post(url, mutationJson)
+                    .map((res: any) => res.data[mutationField]);
+  }
 }

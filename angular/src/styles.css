@@ -11,6 +11,11 @@
     padding: 10px 10px;
 }
 
+.display-none
+{
+    display: none;
+}
+
 .cursor-pointer{
     cursor: pointer;
 }

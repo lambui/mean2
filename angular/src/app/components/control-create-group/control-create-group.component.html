@@ -1,10 +1,34 @@
 <div>
   <span *ngIf='groups'>
     <div>Existed groups:</div>
+
+    <!-- Group list -->
     <div class="row">
-      <div *ngFor='let group of groups' class='col s4 m3 box-border'>{{group.name}}</div>
+      <div *ngFor='let group of groups; let i = index' class='col s4 m3 box-border valign-wrapper'>
+        <span class='col s8 cursor-pointer' (click)='ToggleCollapsible(i)'>{{group.name}}</span>
+        <button type='button' class="col s4 btn" (click)='RemoveGroup(group.name)'>x</button>
+      </div>
     </div>
+
+    <!-- Display desc -->
+    <ul id="collapsible" class="collapsible display-none">
+      <li>
+        <div class="collapsible-header display-none"></div>
+        <div class="collapsible-body">
+          <span *ngIf='chosenIndex != -1' class='flow-text'>
+            <div class='text-bold center'>{{groups[chosenIndex].name}}</div>
+            <div>Description:</div>
+            <div *ngIf='groups[chosenIndex].desc'>{{groups[chosenIndex].desc}}</div>
+            <div *ngIf='groups[chosenIndex].desc == null'>No description</div>
+          </span>
+        </div>
+      </li>
+    </ul>
+    
   </span>
+
+  
+  <!-- new group form -->
   <div>Create groups:</div>
   <form [formGroup]='compFormService.form' (submit)='SubmitForm()'>
     <input type="text" placeholder="Unique group name" formControlName='name'>
