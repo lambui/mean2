@@ -23,6 +23,7 @@ export class PeopleDetailService {
           _id
           create_at
           body
+          index
         }
         peopleId
       }
@@ -124,6 +125,7 @@ export class PeopleDetailService {
         peopleId
         details{
           _id
+          index
           create_at
           body
         }

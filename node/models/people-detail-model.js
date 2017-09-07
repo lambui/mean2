@@ -8,6 +8,7 @@ const detailSchema = mongoose.Schema(
             required: true
         },
         details: [{
+            index: {type:Number, required: true},
             create_at: Date,
             body: String
         }]
@@ -36,12 +37,14 @@ module.exports.AddDetailToPeople = (peopleId, detailBody) => {
     return detail   .GetDetailsByPeopleId(peopleId)
                     .then(detailList => {
                         let newDetail = {
+                            index: -1,
                             create_at: new Date(),
                             body: detailBody
                         };
 
                         if(detailList == null)
                         {
+                            newDetail.index = 0;
                             return detail   .CreateDetailList(peopleId)
                                             .then(newDetailList => {
                                                 newDetailList.details.push(newDetail);
@@ -50,6 +53,7 @@ module.exports.AddDetailToPeople = (peopleId, detailBody) => {
                         }
                         else //if exist already
                         {
+                            newDetail.index = detailList.details[detailList.details.length-1].index + 1;
                             detailList.details.push(newDetail);
                             return detailList.save();
                         }

@@ -81,5 +81,24 @@ module.exports.PeopleDetailMutation = PeopleDetailMutation = {
                                 .remove()
                                 .exec();
         }
+    },
+    people_detail_update_index: {
+        type: new GraphQLList(PeopleDetailType),
+        args: {},
+        resolve(parentValue, args){
+            return PeopleDetail .find({})
+                                .exec()
+                                .then(res => {
+                                    for(let i = 0; i < res.length; i++)
+                                    {
+                                        for(let j = 0; j < res[i].details.length; j++)
+                                        {
+                                            res[i].details[j].index = j;
+                                        }
+                                        res[i].save();
+                                    }
+                                    return res;
+                                });
+        }
     }
 };
