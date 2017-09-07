@@ -8,7 +8,8 @@ const {
     GraphQLList,
     GraphQLNonNull,
     GraphQLFloat,
-    GraphQLInputObjectType
+    GraphQLInputObjectType,
+    GraphQLBoolean
 } = require('graphql');
 const graphqlComposeMongoose = require('graphql-compose-mongoose');
 
@@ -112,6 +113,17 @@ module.exports.PeopleGroupMutation = PeopleGroupMutation = {
                             res.list = [];
                             return res.save();
                         });
+        }
+    },
+    people_group_delete: {
+        type: new GraphQLList(PeopleGroupType),
+        args: {
+            name: {type: new GraphQLNonNull(GraphQLString)}
+        },
+        resolve(parentValue, args) {
+            return group.remove({name: args.name.trim().toUpperCase()})
+                        .exec()
+                        .then(res => group.find({}).exec());
         }
     }
 };
