@@ -14,16 +14,97 @@ export class PeopleGroupService {
     private http: HttpClient
   ) { }
 
-  GetAllGroups()
+  protected BuildValue(value: any): string
+  {
+    if(typeof value === 'string')
+      return `"${value}"`;
+    if(isNaN(value) == false)
+      return `${value}`;
+    if(typeof value === 'object' && value.constructor !== Array)
+    {
+      let returnVal = ``;
+      returnVal += `{`;
+      for (var key in value) 
+      {
+        if (value.hasOwnProperty(key)) 
+        {
+          returnVal += `${key}: `;
+          returnVal += this.BuildValue(value[key]);
+          returnVal += `, `;
+        }
+      }
+      returnVal = returnVal.substr(0, returnVal.length-2);
+      returnVal += `}`;
+      return returnVal;
+    }
+    if(value.constructor === Array)
+    {
+      let returnVal = `[`;
+      for(let i = 0; i < value.length; i++)
+      {
+        returnVal += this.BuildValue(value[i]);
+        if(i != value.length-1)
+          returnVal += ', ';
+      }
+      returnVal += `]`;
+      return returnVal;
+    }
+    return ``;
+  }
+
+  protected BuildArguments(args: any[]): string
+  {
+    if(args == [] || args == null)
+      return "";
+    let argument = `(`;
+    for(let i = 0; i < args.length; i++)
+    {
+      argument += `${args[i].name}:`;
+      argument += this.BuildValue(args[i].value);
+      if(i != args.length-1)
+        argument += `, `;
+    }
+    argument += `)`;
+    return argument;
+  }
+
+  protected BuildQuery(query: string, args: any[], requestInfo: string)
+  {
+    let queryField = query;
+    let queryString = `{${queryField}`;
+    let queryArguments = this.BuildArguments(args);
+    queryString += queryArguments;
+    queryString += requestInfo;
+    queryString += `}`;
+    let url = graphql + '?query=' + queryString;
+    return url;
+  }
+
+  QueryList(query: string, args: any[], requestInfo: string)
+  {
+    let url = this.BuildQuery(query, args, requestInfo);
+    return this.http.get(url)
+                    .mergeMap((res: any) => res.data[query])
+                    .toArray();
+  }
+
+  QueryObject(query: string, args: any[], requestInfo: string)
+  {
+    let url = this.BuildQuery(query, args, requestInfo);
+    return this.http.get(url)
+                    .map((res: any) => res.data[query]);
+  }
+    
+  GetAllGroups(requestInfo: string)
   {
     let queryField = "people_group_all";
-    let queryString = `
-    {
-      ${queryField}{
-        name
-        desc
-      }
-    }`
+    let queryString = `{${queryField}`
+    let queryRequest = `{`;
+    queryRequest += requestInfo;
+    queryRequest += `}`;
+    queryString += queryRequest;
+    queryString += `}`;
+
     let url = graphql + '?query=' + queryString;
     return this.http.get(url)
                     .mergeMap((res: any) => res.data[queryField])

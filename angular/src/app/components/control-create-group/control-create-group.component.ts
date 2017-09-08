@@ -22,7 +22,10 @@ export class ControlCreateGroupComponent implements OnInit {
   ngOnInit() {
     this.materializeService.InitCollapsible();
     this.compFormService.InitForm();
-    this.peopleGroupService .GetAllGroups()
+    this.peopleGroupService .GetAllGroups(`
+                              name
+                              desc  
+                            `)
                             .subscribe(res => this.groups = res);
   }
 

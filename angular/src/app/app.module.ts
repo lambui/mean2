@@ -19,6 +19,7 @@ import { PeopleDetailComponent } from './components/people-detail/people-detail.
 import { PeopleDetailViewComponent } from './components/people-detail-view/people-detail-view.component';
 import { ControlComponent } from './components/control/control.component';
 import { ControlCreateGroupComponent } from './components/control-create-group/control-create-group.component';
+import { PeopleGroupAddComponent } from './components/people-group-add/people-group-add.component';
 
 //module imports
 import { RoutingModule } from './modules/routing/routing.module';
@@ -31,6 +32,8 @@ import { PeopleDetailService } from './services/people-detail/people-detail.serv
 import { PeopleSuperService } from './services/people-super/people-super.service';
 import { AlertTagService } from './services/alert-tag/alert-tag.service';
 import { PeopleGroupService } from './services/people-group/people-group.service';
+import { GraphqlService } from './services/graphql/graphql.service';
+
 
 @NgModule({
   entryComponents: [
@@ -49,7 +52,8 @@ import { PeopleGroupService } from './services/people-group/people-group.service
     AlertTagListComponent,
     AlertTagPopupComponent,
     ControlComponent,
-    ControlCreateGroupComponent
+    ControlCreateGroupComponent,
+    PeopleGroupAddComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,8 @@ import { PeopleGroupService } from './services/people-group/people-group.service
     PeopleDetailService,
     PeopleSuperService,
     AlertTagService,
-    PeopleGroupService
+    PeopleGroupService,
+    GraphqlService
   ],
   bootstrap: [AppComponent]
 })
