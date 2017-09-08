@@ -136,6 +136,7 @@ export class graphqlRequest {
       mutationString += mutationArguments;
       mutationString += this.requestInfo;
       mutationString += `}`;
+      console.log(mutationString);
       let mutationJson = {
         query: mutationString
       };
@@ -150,6 +151,8 @@ export class graphqlRequest {
             this.isMutation = input;
         if(this.built)
             return this.Build();
+        else
+            return this;
     }
 
     IsList(input: boolean)
@@ -192,6 +195,12 @@ export class graphqlRequest {
             this.built = this.BuildMutation();
         else
             this.built = this.BuildQuery();
+        return this;
+    }
+
+    PrintBuild()
+    {
+        console.log(this.built);
         return this;
     }
 

@@ -1,4 +1,3 @@
-import { AppMaterializeService } from '../../services/app-materialize/app-materialize.service';
 import { AlertTagService } from '../../services/alert-tag/alert-tag.service';
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { AlertTagBannerFormService } from './alert-tag-banner.form.service';
@@ -17,14 +16,12 @@ export class AlertTagBannerComponent implements OnInit, DoCheck {
   init: boolean = false;
 
   constructor(
-    private appMaterializeService: AppMaterializeService,    
     private alertTagService: AlertTagService,
     private compFormService: AlertTagBannerFormService
   ) { }
 
   alertTypes: string[];
   ngOnInit() {
-    this.appMaterializeService.InitFormSelect();
     this.compFormService.InitForm();
     this.alertTypes = AlertTypeObject.Type;
   }

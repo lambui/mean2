@@ -7,6 +7,9 @@
       <div class='col s12'>Notices:</div>
       <app-alert-tag-banner [people]='people' [detail]='detail'></app-alert-tag-banner>
     </div>
+
+    <!-- CHOOSE GROUP -->
+    <app-people-group-add [people]='people'></app-people-group-add>
     
     <!-- THE REST -->
     <div *ngIf='detail'>

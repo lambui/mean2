@@ -1,4 +1,14 @@
-<p>
-  people-group-add works!
-</p>
-<button (click)='Test()'>Click</button>
+<span *ngIf='people'>
+  <span *ngIf='groups' class='row'>
+    <form [formGroup]='compFormService.form' (submit)='AddPeople()' novalidate>
+      <md-select placeholder="Group" formControlName='group'>
+        <md-option *ngFor='let group of groups' [value]='group.name'>
+          {{group.name}}
+        </md-option>
+      </md-select>
+      <input type='text' formControlName='msg'>
+      <button class="btn" type='submit' [disabled]='compFormService.form.valid == false'>Add to group</button>
+    </form>
+  </span>
+</span>
+  
